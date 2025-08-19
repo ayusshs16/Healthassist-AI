@@ -161,7 +161,7 @@ export default function SignupPage() {
             </div>
             <div className="grid gap-2">
               <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} disabled={isLoading} />
+              <Input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} disabled={isLoading} onKeyDown={(e) => e.key === 'Enter' && handleCreateAccount()} />
             </div>
             <div className="grid gap-2">
                 <Label>I am a...</Label>

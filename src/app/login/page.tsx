@@ -46,7 +46,7 @@ export default function LoginPage() {
             
             // Update patient context
             updatePatient({
-                id: userData.uid,
+                id: user.uid,
                 name: userData.name,
                 email: userData.email,
                 avatarUrl: userData.avatarUrl,
@@ -62,14 +62,16 @@ export default function LoginPage() {
                 router.push('/dashboard/patient');
             }
         } else {
+            // This case might happen if user document creation failed during signup
+            // For now, we'll log an error and prevent login.
             throw new Error("User data not found in database.");
         }
 
     } catch (error: any) {
         console.error("Login error:", error);
-        let errorMessage = "Incorrect email or password. Please try again.";
+        let errorMessage = "An unexpected error occurred.";
         if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
-            errorMessage = "Invalid credentials. Please check your email and password.";
+            errorMessage = "Incorrect email or password. Please try again.";
         } else if (error.message) {
             errorMessage = error.message;
         }
@@ -126,6 +128,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={isLoading}
+                onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
               />
             </div>
             <Button type="submit" className="w-full" onClick={handleLogin} disabled={isLoading}>
