@@ -33,9 +33,10 @@ function AppointmentCard({ appointment }: { appointment: Appointment }) {
     <Card className="hover:shadow-md transition-shadow">
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <div className="flex items-center gap-4">
-            <div className="relative h-10 w-10">
-                <Image src={appointment.doctor.avatarUrl} alt={appointment.doctor.name} layout="fill" objectFit="cover" className="rounded-full"/>
-            </div>
+            <Avatar className="h-10 w-10">
+                <AvatarImage src={appointment.doctor.avatarUrl} alt={appointment.doctor.name} />
+                <AvatarFallback>{appointment.doctor.name.charAt(0)}</AvatarFallback>
+            </Avatar>
           <div>
             <CardTitle className="text-lg">{appointment.doctor.name}</CardTitle>
             <CardDescription>{appointment.doctor.specialization}</CardDescription>

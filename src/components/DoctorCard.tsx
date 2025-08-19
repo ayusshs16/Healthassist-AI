@@ -16,9 +16,9 @@ export function DoctorCard({ doctor }: { doctor: Doctor }) {
                 <Image 
                   src={doctor.avatarUrl} 
                   alt={doctor.name}
-                  layout="fill"
-                  objectFit="cover"
-                  className="w-full h-full"
+                  width={250}
+                  height={192}
+                  className="w-full h-full object-cover"
                 />
             </CardHeader>
             <CardContent className="flex-grow p-4">
