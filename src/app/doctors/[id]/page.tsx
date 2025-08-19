@@ -1,11 +1,12 @@
+
 "use client";
 
 import { AppLayout } from "@/components/shared/AppLayout";
-import { mockDoctors, mockPatient } from "@/lib/mock-data";
+import { mockDoctors } from "@/lib/mock-data";
 import { notFound } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Star, Briefcase, Award, BadgeDollarSign, Calendar, Clock, Loader2 } from "lucide-react";
+import { Star, Briefcase, Award, BadgeDollarSign, Calendar, Clock, Loader2, CheckCircle, GraduationCap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -60,7 +61,7 @@ export default function DoctorProfilePage({ params }: { params: { id: string } }
   return (
     <AppLayout>
       <div className="grid md:grid-cols-3 gap-8">
-        <div className="md:col-span-2">
+        <div className="md:col-span-2 space-y-8">
             <Card>
                 <CardHeader className="flex flex-col md:flex-row gap-6 items-start">
                     <Avatar className="w-32 h-32 border-4 border-primary/20">
@@ -70,7 +71,7 @@ export default function DoctorProfilePage({ params }: { params: { id: string } }
                     <div className="space-y-1.5">
                         <CardTitle className="text-3xl font-bold">{doctor.name}</CardTitle>
                         <CardDescription className="text-lg text-primary">{doctor.specialization}</CardDescription>
-                        <div className="flex items-center gap-4 pt-2 text-muted-foreground">
+                        <div className="flex items-center gap-4 pt-2 text-muted-foreground flex-wrap">
                             <div className="flex items-center gap-1">
                                 <Star className="w-5 h-5 text-accent fill-accent" />
                                 <span>{doctor.rating}</span>
@@ -92,6 +93,32 @@ export default function DoctorProfilePage({ params }: { params: { id: string } }
                     <p className="text-muted-foreground">{doctor.bio}</p>
                 </CardContent>
             </Card>
+
+            <Card>
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2"><GraduationCap /> Education & Experience</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <p className="text-muted-foreground">Dr. {doctor.name.split(' ').pop()} is a highly qualified professional with a degree from a prestigious institution and extensive experience in the field.</p>
+                     <ul className="space-y-2">
+                        <li className="flex items-center gap-2"><CheckCircle className="h-5 w-5 text-green-500" /> Board-certified in {doctor.specialization}.</li>
+                        <li className="flex items-center gap-2"><CheckCircle className="h-5 w-5 text-green-500" /> Fellow of the American College of Physicians.</li>
+                    </ul>
+                </CardContent>
+            </Card>
+             <Card>
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2"><Award /> Awards & Recognitions</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <p className="text-muted-foreground">Recognized for excellence in patient care and medical research.</p>
+                    <ul className="space-y-2">
+                        <li className="flex items-center gap-2"><Award className="h-5 w-5 text-accent" /> Top Doctor Award - 2023</li>
+                        <li className="flex items-center gap-2"><Award className="h-5 w-5 text-accent" /> Patient's Choice Award - 2022</li>
+                    </ul>
+                </CardContent>
+            </Card>
+
         </div>
         <div className="md:col-span-1">
             <Card>

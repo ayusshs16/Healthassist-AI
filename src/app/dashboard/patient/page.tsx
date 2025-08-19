@@ -1,3 +1,4 @@
+
 "use client";
 
 import { mockPatientAppointments } from '@/lib/mock-data';
@@ -5,7 +6,7 @@ import type { Appointment } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Clock, CheckCircle, XCircle, Bot } from 'lucide-react';
+import { Calendar, Clock, CheckCircle, XCircle, Bot, LineChart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { usePatient } from '@/hooks/use-patient';
@@ -16,17 +17,14 @@ function AppointmentCard({ appointment }: { appointment: Appointment }) {
     upcoming: {
       icon: <Calendar className="h-5 w-5 text-primary" />,
       badge: <Badge variant="default">Upcoming</Badge>,
-      color: "text-primary"
     },
     completed: {
       icon: <CheckCircle className="h-5 w-5 text-green-500" />,
       badge: <Badge variant="secondary">Completed</Badge>,
-       color: "text-green-500"
     },
     cancelled: {
       icon: <XCircle className="h-5 w-5 text-destructive" />,
       badge: <Badge variant="destructive">Cancelled</Badge>,
-       color: "text-destructive"
     },
   };
 
@@ -59,6 +57,20 @@ function AppointmentCard({ appointment }: { appointment: Appointment }) {
   );
 }
 
+function StatCard({ title, value, icon }: { title: string, value: string | number, icon: React.ReactNode }) {
+    return (
+        <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">{title}</CardTitle>
+                {icon}
+            </CardHeader>
+            <CardContent>
+                <div className="text-2xl font-bold">{value}</div>
+            </CardContent>
+        </Card>
+    )
+}
+
 export default function PatientDashboardPage() {
   const { patient, isLoading } = usePatient();
   const upcomingAppointments = mockPatientAppointments.filter(a => a.status === 'upcoming');
@@ -71,6 +83,12 @@ export default function PatientDashboardPage() {
                 <Skeleton className="h-9 w-64" />
                 <Skeleton className="h-5 w-80 mt-2" />
             </div>
+             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                <Skeleton className="h-[120px]" />
+                <Skeleton className="h-[120px]" />
+                <Skeleton className="h-[120px]" />
+                <Skeleton className="h-[120px]" />
+            </div>
         </div>
     )
   }
@@ -80,6 +98,13 @@ export default function PatientDashboardPage() {
       <div>
         <h1 className="text-3xl font-bold">Welcome back, {patient?.name.split(' ')[0]}!</h1>
         <p className="text-muted-foreground">Here's your health dashboard for today.</p>
+      </div>
+      
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <StatCard title="Total Appointments" value={mockPatientAppointments.length} icon={<LineChart className="h-4 w-4 text-muted-foreground" />} />
+        <StatCard title="Upcoming" value={upcomingAppointments.length} icon={<Calendar className="h-4 w-4 text-muted-foreground" />} />
+        <StatCard title="Completed" value={pastAppointments.filter(a => a.status === 'completed').length} icon={<CheckCircle className="h-4 w-4 text-muted-foreground" />} />
+        <StatCard title="Cancelled" value={pastAppointments.filter(a => a.status === 'cancelled').length} icon={<XCircle className="h-4 w-4 text-muted-foreground" />} />
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -109,6 +134,9 @@ export default function PatientDashboardPage() {
                 </p>
                 <Button asChild className="w-full">
                     <Link href="/chatbot">Start a Chat</Link>
+                </Button>
+                 <Button asChild className="w-full" variant="outline">
+                    <Link href="/doctors">Book an Appointment</Link>
                 </Button>
             </CardContent>
         </Card>
