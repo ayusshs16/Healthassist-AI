@@ -10,32 +10,70 @@ import { AppLogo } from "@/components/icons"
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { auth, db } from "@/lib/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { usePatient } from "@/hooks/use-patient";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
   const { toast } = useToast();
+  const { updatePatient } = usePatient();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = () => {
-    // In a real app, you would have proper authentication logic here.
-    // We'll simulate a password check for the prototype.
-    if (password !== 'password123') {
+  const handleLogin = async () => {
+    if (!email || !password) {
         toast({
             title: "Login Failed",
-            description: "Incorrect password. Please try again.",
+            description: "Please enter both email and password.",
             variant: "destructive",
         });
         return;
     }
-    
-    // We use localStorage to simulate role-based redirect.
-    const role = localStorage.getItem('userRole') || 'patient';
+    setIsLoading(true);
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
 
-    if (role === 'doctor') {
-      router.push('/dashboard/doctor');
-    } else {
-      router.push('/dashboard/patient');
+        // Fetch user role from Firestore
+        const userDocRef = doc(db, "users", user.uid);
+        const userDoc = await getDoc(userDocRef);
+
+        if (userDoc.exists()) {
+            const userData = userDoc.data();
+            
+            // Update patient context
+            updatePatient({
+                id: userData.uid,
+                name: userData.name,
+                email: userData.email,
+                avatarUrl: userData.avatarUrl,
+                phone: userData.phone || '',
+                dateOfBirth: userData.dateOfBirth || '',
+                address: userData.address || '',
+            });
+
+            // Redirect based on role
+            if (userData.role === 'doctor') {
+                router.push('/dashboard/doctor');
+            } else {
+                router.push('/dashboard/patient');
+            }
+        } else {
+            throw new Error("User data not found in database.");
+        }
+
+    } catch (error: any) {
+        console.error("Login error:", error);
+        toast({
+            title: "Login Failed",
+            description: error.message || "Incorrect email or password. Please try again.",
+            variant: "destructive",
+        });
+    } finally {
+        setIsLoading(false);
     }
   };
 
@@ -82,8 +120,8 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <Button type="submit" className="w-full" onClick={handleLogin}>
-                Login
+            <Button type="submit" className="w-full" onClick={handleLogin} disabled={isLoading}>
+                {isLoading ? 'Logging in...' : 'Login'}
             </Button>
             <div className="relative">
                 <div className="absolute inset-0 flex items-center">

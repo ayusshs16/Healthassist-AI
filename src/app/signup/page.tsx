@@ -17,33 +17,72 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useState } from "react";
 import { usePatient } from "@/hooks/use-patient";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
+import { auth, db } from "@/lib/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore";
 
 export default function SignupPage() {
   const [role, setRole] = useState("patient");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const { updatePatient, patient } = usePatient();
+  const [password, setPassword] = useState("");
+  const { updatePatient } = usePatient();
   const router = useRouter();
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
 
 
-  const handleCreateAccount = () => {
-    const fullName = `${firstName} ${lastName}`;
-    const newPatientData = {
-        ...patient!,
-        id: 'user_signed_up',
+  const handleCreateAccount = async () => {
+    if (!firstName || !lastName || !email || !password) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill out all fields.",
+        variant: "destructive",
+      });
+      return;
+    }
+    setIsLoading(true);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      const fullName = `${firstName} ${lastName}`;
+
+      // Store user info in Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        uid: user.uid,
+        name: fullName,
+        email: user.email,
+        role: role,
+        avatarUrl: 'https://placehold.co/128x128.png',
+      });
+      
+      // Update local patient context
+      updatePatient({
+        id: user.uid,
         name: fullName,
         email: email,
-        avatarUrl: 'https://placehold.co/128x128.png', // default avatar
-    };
-    updatePatient(newPatientData);
-    
-    // In a real app, you'd store this in your database.
-    // We use localStorage to simulate this for the prototype.
-    localStorage.setItem('userRole', role);
+        avatarUrl: 'https://placehold.co/128x128.png',
+        phone: '',
+        dateOfBirth: '',
+        address: ''
+      });
 
-    const redirectPath = role === 'patient' ? "/dashboard/patient" : "/dashboard/doctor";
-    router.push(redirectPath);
+      // Redirect based on role
+      const redirectPath = role === 'patient' ? "/dashboard/patient" : "/dashboard/doctor";
+      router.push(redirectPath);
+
+    } catch (error: any) {
+      console.error("Signup error:", error);
+      toast({
+        title: "Signup Failed",
+        description: error.message || "An unexpected error occurred.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -83,7 +122,7 @@ export default function SignupPage() {
             </div>
             <div className="grid gap-2">
               <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" />
+              <Input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
             </div>
             <div className="grid gap-2">
                 <Label>I am a...</Label>
@@ -98,8 +137,8 @@ export default function SignupPage() {
                     </div>
                 </RadioGroup>
             </div>
-            <Button type="submit" className="w-full" onClick={handleCreateAccount}>
-                Create an account
+            <Button type="submit" className="w-full" onClick={handleCreateAccount} disabled={isLoading}>
+                {isLoading ? 'Creating Account...' : 'Create an account'}
             </Button>
             <div className="relative">
                 <div className="absolute inset-0 flex items-center">
