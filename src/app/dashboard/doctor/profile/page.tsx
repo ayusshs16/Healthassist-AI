@@ -16,7 +16,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 export default function DoctorProfilePage() {
   const { patient, updatePatient, isLoading } = usePatient();
   // Using a mix of patient context and mock data for doctor profile
-  const mockDoctor = mockDoctors[0]; 
+  const mockDoctor = mockDoctors.find(d => d.name === patient?.name) || mockDoctors[0]; 
 
   const [name, setName] = useState(patient?.name || '');
   const [specialization, setSpecialization] = useState(mockDoctor.specialization); // Still mock
@@ -30,6 +30,11 @@ export default function DoctorProfilePage() {
     if (patient) {
       setName(patient.name);
       setAvatar(patient.avatarUrl);
+      const associatedDoctor = mockDoctors.find(d => d.name === patient.name);
+      if (associatedDoctor) {
+        setSpecialization(associatedDoctor.specialization);
+        setBio(associatedDoctor.bio || `A brief bio for ${patient.name}.`);
+      }
     }
   }, [patient]);
 
@@ -37,6 +42,7 @@ export default function DoctorProfilePage() {
   const handleSaveChanges = () => {
     if (patient) {
         updatePatient({ ...patient, name, avatarUrl: avatar });
+        // In a real app, you would also save specialization and bio changes.
         toast({
             title: "Profile Updated",
             description: "Your information has been successfully saved.",
@@ -107,7 +113,7 @@ export default function DoctorProfilePage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="bio">Bio</Label>
-              <Textarea id="bio" value={bio} onChange={e => setBio(e.target.value)} rows={5} />
+              <Textarea id="bio" value={bio} onChange={e => setBio(e.target.value)} placeholder="Enter a brief bio..." rows={5} />
             </div>
             <div className="flex justify-end">
                 <Button onClick={handleSaveChanges}>Save Changes</Button>
