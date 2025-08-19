@@ -10,6 +10,11 @@ export interface Doctor {
   rating: number;
 }
 
+export interface Patient {
+  id: string;
+  name: string;
+}
+
 export interface Appointment {
   id: string;
   patientName: string;

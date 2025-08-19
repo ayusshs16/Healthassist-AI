@@ -1,4 +1,9 @@
-import type { Doctor, Appointment } from './types';
+import type { Doctor, Appointment, Patient } from './types';
+
+export const mockPatient: Patient = {
+  id: 'user1',
+  name: 'Jane Doe',
+};
 
 export const mockDoctors: Doctor[] = [
   {
@@ -116,7 +121,7 @@ export const mockDoctors: Doctor[] = [
 export const mockPatientAppointments: Appointment[] = [
   {
     id: 'apt1',
-    patientName: 'John Doe',
+    patientName: 'Jane Doe',
     doctor: { name: 'Dr. Sarah Johnson', specialization: 'Cardiologist', avatarUrl: 'https://placehold.co/40x40.png' },
     date: '2024-08-15',
     time: '10:00 AM',
@@ -124,7 +129,7 @@ export const mockPatientAppointments: Appointment[] = [
   },
   {
     id: 'apt2',
-    patientName: 'John Doe',
+    patientName: 'Jane Doe',
     doctor: { name: 'Dr. Michael Lee', specialization: 'Dermatologist', avatarUrl: 'https://placehold.co/40x40.png' },
     date: '2024-07-20',
     time: '02:30 PM',
@@ -132,7 +137,7 @@ export const mockPatientAppointments: Appointment[] = [
   },
   {
     id: 'apt3',
-    patientName: 'John Doe',
+    patientName: 'Jane Doe',
     doctor: { name: 'Dr. Emily Carter', specialization: 'Pediatrician', avatarUrl: 'https://placehold.co/40x40.png' },
     date: '2024-07-10',
     time: '11:00 AM',

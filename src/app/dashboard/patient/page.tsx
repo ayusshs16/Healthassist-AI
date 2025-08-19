@@ -1,4 +1,4 @@
-import { mockPatientAppointments } from '@/lib/mock-data';
+import { mockPatientAppointments, mockPatient } from '@/lib/mock-data';
 import type { Appointment } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -58,11 +58,12 @@ function AppointmentCard({ appointment }: { appointment: Appointment }) {
 export default function PatientDashboardPage() {
   const upcomingAppointments = mockPatientAppointments.filter(a => a.status === 'upcoming');
   const pastAppointments = mockPatientAppointments.filter(a => a.status !== 'upcoming');
+  const patient = mockPatient;
 
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold">Welcome back, John!</h1>
+        <h1 className="text-3xl font-bold">Welcome back, {patient.name}!</h1>
         <p className="text-muted-foreground">Here's your health dashboard for today.</p>
       </div>
 
