@@ -10,6 +10,13 @@ import Link from "next/link";
 import Image from "next/image";
 
 export function DoctorCard({ doctor }: { doctor: Doctor }) {
+    const getDoctorHint = (name: string) => {
+        if (name.includes('Sarah') || name.includes('Emily') || name.includes('Jessica') || name.includes('Laura') || name.includes('Linda')) {
+            return "woman doctor";
+        }
+        return "man doctor";
+    }
+
     return (
         <Card className="flex flex-col h-full overflow-hidden hover:shadow-lg transition-shadow duration-300">
             <CardHeader className="p-0 relative h-48 w-full">
@@ -19,7 +26,7 @@ export function DoctorCard({ doctor }: { doctor: Doctor }) {
                   width={250}
                   height={192}
                   className="w-full h-full object-cover"
-                  data-ai-hint="doctor professional"
+                  data-ai-hint={getDoctorHint(doctor.name)}
                 />
             </CardHeader>
             <CardContent className="flex-grow p-4">

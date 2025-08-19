@@ -58,6 +58,13 @@ export default function DoctorProfilePage({ params }: { params: { id: string } }
       setIsBooking(false);
     }
   };
+  
+  const getDoctorHint = (name: string) => {
+    if (name.includes('Sarah') || name.includes('Emily') || name.includes('Jessica') || name.includes('Laura') || name.includes('Linda')) {
+        return "woman doctor";
+    }
+    return "man doctor";
+  }
 
   return (
     <AppLayout>
@@ -65,7 +72,7 @@ export default function DoctorProfilePage({ params }: { params: { id: string } }
         <div className="md:col-span-2 space-y-8">
             <Card>
                 <CardHeader className="flex flex-col md:flex-row gap-6 items-start">
-                    <Avatar className="w-32 h-32">
+                    <Avatar className="w-32 h-32" data-ai-hint={getDoctorHint(doctor.name)}>
                         <AvatarImage src={doctor.avatarUrl} alt={doctor.name} />
                         <AvatarFallback>{doctor.name.charAt(0)}</AvatarFallback>
                     </Avatar>
