@@ -4,24 +4,10 @@
  * @fileOverview An email sending AI agent.
  *
  * - sendEmail - A function that handles sending an email.
- * - SendEmailInput - The input type for the sendEmail function.
- * - SendEmailOutput - The return type for the sendEmail function.
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
-
-export const SendEmailInputSchema = z.object({
-  to: z.string().describe('The email address of the recipient.'),
-  subject: z.string().describe('The subject of the email.'),
-  body: z.string().describe('The body of the email.'),
-});
-export type SendEmailInput = z.infer<typeof SendEmailInputSchema>;
-
-export const SendEmailOutputSchema = z.object({
-  success: z.boolean().describe('Whether the email was sent successfully.'),
-});
-export type SendEmailOutput = z.infer<typeof SendEmailOutputSchema>;
+import { SendEmailInputSchema, SendEmailOutputSchema, type SendEmailInput, type SendEmailOutput } from '@/lib/types';
 
 export async function sendEmail(input: SendEmailInput): Promise<SendEmailOutput> {
   return sendEmailFlow(input);
