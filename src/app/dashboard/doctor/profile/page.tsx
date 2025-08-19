@@ -1,7 +1,7 @@
 
 "use client";
 
-import { mockDoctors } from '@/lib/mock-data';
+import { usePatient } from '@/hooks/use-patient';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -10,19 +10,31 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import React, { useRef, useState, useEffect } from 'react';
+import { mockDoctors } from '@/lib/mock-data';
 
 export default function DoctorProfilePage() {
-  const [doctor, setDoctor] = useState(mockDoctors[0]);
-  const [name, setName] = useState(doctor.name);
-  const [specialization, setSpecialization] = useState(doctor.specialization);
-  const [bio, setBio] = useState(doctor.bio);
-  const [avatar, setAvatar] = useState(doctor.avatarUrl);
+  const { patient } = usePatient();
+  // Using a mix of patient context and mock data for doctor profile
+  const mockDoctor = mockDoctors[0]; 
+
+  const [name, setName] = useState(patient?.name || mockDoctor.name);
+  const [specialization, setSpecialization] = useState(mockDoctor.specialization);
+  const [bio, setBio] = useState(mockDoctor.bio);
+  const [avatar, setAvatar] = useState(patient?.avatarUrl || mockDoctor.avatarUrl);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
+  useEffect(() => {
+    if (patient) {
+      setName(patient.name);
+      setAvatar(patient.avatarUrl);
+    }
+  }, [patient]);
+
+
   const handleSaveChanges = () => {
-    setDoctor(prev => ({...prev!, name, specialization, bio, avatarUrl: avatar}));
+    // In a real app, you would also update the patient context here if needed
     toast({
         title: "Profile Updated",
         description: "Your information has been successfully saved.",

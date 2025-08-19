@@ -1,4 +1,5 @@
 
+
 "use client"
 
 import Link from "next/link"
@@ -36,7 +37,11 @@ function UserMenu() {
     const pathname = usePathname();
     const isDoctor = pathname.startsWith('/dashboard/doctor');
     
-    if (!patient) return null;
+    // Hooks must be called unconditionally at the top level.
+    if (!patient) {
+        // You can return a loading state or null, but hooks can't be called after this.
+        return null; 
+    }
 
     return (
         <DropdownMenu>
@@ -44,7 +49,7 @@ function UserMenu() {
                 <Button variant="ghost" size="icon" className="rounded-full">
                 <Avatar className="h-8 w-8">
                     <AvatarImage src={isDoctor ? 'https://placehold.co/128x128.png' : patient.avatarUrl} />
-                    <AvatarFallback>{isDoctor ? "D" : patient.name.charAt(0)}</AvatarFallback>
+                    <AvatarFallback>{patient.name ? patient.name.charAt(0) : "U"}</AvatarFallback>
                 </Avatar>
                 </Button>
             </DropdownMenuTrigger>

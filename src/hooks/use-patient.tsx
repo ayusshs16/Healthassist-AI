@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
@@ -17,15 +18,21 @@ export const PatientProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate fetching data
-    setTimeout(() => {
+    // Try to load patient data from localStorage
+    const storedPatient = localStorage.getItem('patient');
+    if (storedPatient) {
+      setPatient(JSON.parse(storedPatient));
+    } else {
+      // Fallback to mock data if nothing is in localStorage
       setPatient(mockPatient);
-      setIsLoading(false);
-    }, 500);
+    }
+    setIsLoading(false);
   }, []);
 
   const updatePatient = (updatedPatient: Patient) => {
     setPatient(updatedPatient);
+    // Persist patient data to localStorage
+    localStorage.setItem('patient', JSON.stringify(updatedPatient));
   };
 
   return (

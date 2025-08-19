@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link"
@@ -14,9 +15,31 @@ import { Label } from "@/components/ui/label"
 import { AppLogo } from "@/components/icons"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useState } from "react";
+import { usePatient } from "@/hooks/use-patient";
+import { useRouter } from "next/navigation";
 
 export default function SignupPage() {
   const [role, setRole] = useState("patient");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const { updatePatient, patient } = usePatient();
+  const router = useRouter();
+
+
+  const handleCreateAccount = () => {
+    const fullName = `${firstName} ${lastName}`;
+    const newPatientData = {
+        ...patient!,
+        id: 'user_signed_up',
+        name: fullName,
+        email: email,
+        avatarUrl: 'https://placehold.co/128x128.png', // default avatar
+    };
+    updatePatient(newPatientData);
+    const redirectPath = role === 'patient' ? "/dashboard/patient" : "/dashboard/doctor";
+    router.push(redirectPath);
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-background">
@@ -35,11 +58,11 @@ export default function SignupPage() {
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="first-name">First name</Label>
-                <Input id="first-name" placeholder="Max" required />
+                <Input id="first-name" placeholder="Max" required value={firstName} onChange={e => setFirstName(e.target.value)} />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="last-name">Last name</Label>
-                <Input id="last-name" placeholder="Robinson" required />
+                <Input id="last-name" placeholder="Robinson" required value={lastName} onChange={e => setLastName(e.target.value)} />
               </div>
             </div>
             <div className="grid gap-2">
@@ -49,6 +72,8 @@ export default function SignupPage() {
                 type="email"
                 placeholder="m@example.com"
                 required
+                value={email}
+                onChange={e => setEmail(e.target.value)}
               />
             </div>
             <div className="grid gap-2">
@@ -68,8 +93,8 @@ export default function SignupPage() {
                     </div>
                 </RadioGroup>
             </div>
-            <Button type="submit" className="w-full" asChild>
-                <Link href={role === 'patient' ? "/dashboard/patient" : "/dashboard/doctor"}>Create an account</Link>
+            <Button type="submit" className="w-full" onClick={handleCreateAccount}>
+                Create an account
             </Button>
             <div className="relative">
                 <div className="absolute inset-0 flex items-center">
