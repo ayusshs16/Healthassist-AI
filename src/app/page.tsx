@@ -1,14 +1,32 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { AppLogo } from '@/components/icons';
+import { AppLogo, ChatbotLogo } from '@/components/icons';
 import { Bot, Stethoscope, User, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
+
+function FeatureCard({ icon, title, description, href }: { icon: React.ReactNode, title: string, description: string, href: string }) {
+    return (
+        <Link href={href} className="block group">
+            <Card className="shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full">
+                <CardHeader className="flex flex-row items-center gap-4">
+                    <div className="bg-primary/10 p-3 rounded-full group-hover:bg-primary/20 transition-colors">
+                        {icon}
+                    </div>
+                    <CardTitle>{title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <p className="text-muted-foreground">{description}</p>
+                </CardContent>
+            </Card>
+        </Link>
+    )
+}
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="px-4 lg:px-6 h-16 flex items-center bg-card shadow-sm">
+      <header className="px-4 lg:px-6 h-16 flex items-center bg-card/80 backdrop-blur-sm shadow-sm fixed top-0 w-full z-50">
         <Link href="#" className="flex items-center justify-center" prefetch={false}>
           <AppLogo className="h-8 w-8 text-primary" />
           <span className="sr-only">HealthAssist AI</span>
@@ -23,8 +41,8 @@ export default function Home() {
           </Button>
         </nav>
       </header>
-      <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-card">
+      <main className="flex-1 pt-16">
+        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 gradient-background">
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
               <div className="flex flex-col justify-center space-y-4">
@@ -49,8 +67,8 @@ export default function Home() {
                 width="600"
                 height="400"
                 alt="Hero"
-                data-ai-hint="doctor patient consultation"
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last"
+                data-ai-hint="doctor professional healthcare"
+                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
               />
             </div>
           </div>
@@ -66,40 +84,25 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="mx-auto grid max-w-5xl items-start gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3 mt-12">
-              <Card className="shadow-lg hover:shadow-xl transition-shadow">
-                <CardHeader className="flex flex-row items-center gap-4">
-                  <div className="bg-primary/10 p-3 rounded-full">
-                    <Bot className="h-8 w-8 text-primary" />
-                  </div>
-                  <CardTitle>AI Health Chatbot</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">Get instant answers to your health questions and guidance on your symptoms from our intelligent chatbot.</p>
-                </CardContent>
-              </Card>
-              <Card className="shadow-lg hover:shadow-xl transition-shadow">
-                <CardHeader className="flex flex-row items-center gap-4">
-                  <div className="bg-primary/10 p-3 rounded-full">
-                    <Stethoscope className="h-8 w-8 text-primary" />
-                  </div>
-                  <CardTitle>Doctor Discovery</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">Easily find and book appointments with top doctors and specialists in your area based on your needs.</p>
-                </CardContent>
-              </Card>
-              <Card className="shadow-lg hover:shadow-xl transition-shadow">
-                <CardHeader className="flex flex-row items-center gap-4">
-                  <div className="bg-primary/10 p-3 rounded-full">
-                    <User className="h-8 w-8 text-primary" />
-                  </div>
-                  <CardTitle>Personalized Dashboards</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">Manage your appointments, view your health history, and interact with your doctor—all in one place.</p>
-                </CardContent>
-              </Card>
+            <div className="mx-auto grid max-w-5xl items-stretch gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3 mt-12">
+               <FeatureCard 
+                href="/chatbot"
+                icon={<ChatbotLogo className="h-8 w-8 text-primary"/>}
+                title="AI Health Chatbot"
+                description="Get instant answers to your health questions and guidance on your symptoms from our intelligent chatbot."
+              />
+              <FeatureCard 
+                href="/doctors"
+                icon={<Stethoscope className="h-8 w-8 text-primary" />}
+                title="Doctor Discovery"
+                description="Easily find and book appointments with top doctors and specialists in your area based on your needs."
+              />
+              <FeatureCard
+                href="/dashboard/patient"
+                icon={<User className="h-8 w-8 text-primary" />}
+                title="Personalized Dashboards"
+                description="Manage your appointments, view your health history, and interact with your doctor—all in one place."
+              />
             </div>
           </div>
         </section>

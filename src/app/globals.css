@@ -78,3 +78,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+    .gradient-background {
+        background: linear-gradient(120deg, hsl(var(--background)) 0%, hsl(var(--primary) / 0.1) 100%);
+    }
+}
