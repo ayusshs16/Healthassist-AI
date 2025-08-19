@@ -16,25 +16,25 @@ import { Skeleton } from '@/components/ui/skeleton';
 export default function DoctorProfilePage() {
   const { patient, updatePatient, isLoading } = usePatient();
   // Using a mix of patient context and mock data for doctor profile
-  const mockDoctor = mockDoctors.find(d => d.name === patient?.name) || mockDoctors[0]; 
-
-  const [name, setName] = useState(patient?.name || '');
-  const [specialization, setSpecialization] = useState(mockDoctor.specialization); // Still mock
-  const [bio, setBio] = useState(mockDoctor.bio); // Still mock
-  const [avatar, setAvatar] = useState(patient?.avatarUrl || '');
+  const [doctor, setDoctor] = useState(mockDoctors[0]);
+  
+  const [name, setName] = useState('');
+  const [specialization, setSpecialization] = useState('');
+  const [bio, setBio] = useState('');
+  const [avatar, setAvatar] = useState('');
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
   useEffect(() => {
+    // We'll use the logged-in user's name for the profile, but the rest is mock
     if (patient) {
-      setName(patient.name);
-      setAvatar(patient.avatarUrl);
-      const associatedDoctor = mockDoctors.find(d => d.name === patient.name);
-      if (associatedDoctor) {
+        const associatedDoctor = mockDoctors.find(d => d.name.toLowerCase() === patient.name.toLowerCase()) || mockDoctors[0];
+        setDoctor(associatedDoctor);
+        setName(patient.name);
+        setAvatar(associatedDoctor.avatarUrl);
         setSpecialization(associatedDoctor.specialization);
         setBio(associatedDoctor.bio || `A brief bio for ${patient.name}.`);
-      }
     }
   }, [patient]);
 
