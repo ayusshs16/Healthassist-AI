@@ -20,12 +20,13 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { auth, db } from "@/lib/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, collection, query, where, getDocs } from "firebase/firestore";
 
 export default function SignupPage() {
   const [role, setRole] = useState("patient");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { updatePatient } = usePatient();
@@ -35,7 +36,7 @@ export default function SignupPage() {
 
 
   const handleCreateAccount = async () => {
-    if (!firstName || !lastName || !email || !password) {
+    if (!firstName || !lastName || !username || !email || !password) {
       toast({
         title: "Missing Information",
         description: "Please fill out all fields.",
@@ -44,7 +45,23 @@ export default function SignupPage() {
       return;
     }
     setIsLoading(true);
+    
     try {
+      // Check if username is unique
+      const usersRef = collection(db, "users");
+      const q = query(usersRef, where("username", "==", username));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        toast({
+          title: "Username Taken",
+          description: "This username is already in use. Please choose another one.",
+          variant: "destructive",
+        });
+        setIsLoading(false);
+        return;
+      }
+
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       const fullName = `${firstName} ${lastName}`;
@@ -53,6 +70,7 @@ export default function SignupPage() {
       await setDoc(doc(db, "users", user.uid), {
         uid: user.uid,
         name: fullName,
+        username: username,
         email: user.email,
         role: role,
         avatarUrl: 'https://placehold.co/128x128.png',
@@ -109,6 +127,17 @@ export default function SignupPage() {
                 <Input id="last-name" placeholder="Robinson" required value={lastName} onChange={e => setLastName(e.target.value)} />
               </div>
             </div>
+             <div className="grid gap-2">
+              <Label htmlFor="username">Username</Label>
+              <Input
+                id="username"
+                type="text"
+                placeholder="maxrobinson"
+                required
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -117,7 +146,7 @@ export default function SignupPage() {
                 placeholder="m@example.com"
                 required
                 value={email}
-                onChange={e => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="grid gap-2">
