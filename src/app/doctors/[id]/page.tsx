@@ -3,7 +3,7 @@
 
 import { AppLayout } from "@/components/shared/AppLayout";
 import { mockDoctors } from "@/lib/mock-data";
-import { notFound } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Star, Briefcase, Award, BadgeDollarSign, Calendar, Clock, Loader2, CheckCircle, GraduationCap } from "lucide-react";
@@ -16,8 +16,10 @@ import { useToast } from "@/hooks/use-toast";
 import { usePatient } from "@/hooks/use-patient";
 import Image from "next/image";
 
-export default function DoctorProfilePage({ params }: { params: { id: string } }) {
-  const doctor = mockDoctors.find(d => d.id === params.id);
+export default function DoctorProfilePage() {
+  const params = useParams();
+  const doctorId = typeof params.id === 'string' ? params.id : '';
+  const doctor = mockDoctors.find(d => d.id === doctorId);
   const { patient } = usePatient();
   const [isBooking, setIsBooking] = useState(false);
   const { toast } = useToast();
@@ -60,7 +62,7 @@ export default function DoctorProfilePage({ params }: { params: { id: string } }
   };
   
   const getDoctorHint = (name: string) => {
-    if (name.includes('Sarah') || name.includes('Emily') || name.includes('Jessica') || name.includes('Laura') || name.includes('Linda')) {
+    if (name.includes('Sarah') || name.includes('Emily') || name.includes('Jessica') || name.includes('Laura') || name.includes('Linda') || name.includes('Jane')) {
         return "woman doctor";
     }
     return "man doctor";
