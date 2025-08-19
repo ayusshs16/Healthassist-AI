@@ -7,7 +7,8 @@ import {
   Bot,
   UserCircle,
   LogOut,
-  BriefcaseMedical
+  BriefcaseMedical,
+  UserCog
 } from "lucide-react"
 
 import {
@@ -32,13 +33,16 @@ import { PatientProvider, usePatient } from "@/hooks/use-patient"
 function UserMenu() {
     const { patient } = usePatient();
     if (!patient) return null;
+    // In a real app, you'd have logic to determine if the user is a doctor or patient
+    const isDoctor = usePathname().startsWith('/dashboard/doctor');
+    
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full">
                 <Avatar className="h-8 w-8">
-                    <AvatarImage src={patient.avatarUrl} />
-                    <AvatarFallback>{patient.name.charAt(0)}</AvatarFallback>
+                    <AvatarImage src={isDoctor ? 'https://placehold.co/128x128.png' : patient.avatarUrl} />
+                    <AvatarFallback>{isDoctor ? "D" : patient.name.charAt(0)}</AvatarFallback>
                 </Avatar>
                 </Button>
             </DropdownMenuTrigger>
@@ -46,7 +50,7 @@ function UserMenu() {
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                <Link href="/dashboard/patient/profile">Profile</Link>
+                  <Link href={isDoctor ? "/dashboard/doctor/profile" : "/dashboard/patient/profile"}>Profile</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>Settings</DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -71,6 +75,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   const getPageTitle = () => {
     if (isActive('/dashboard/patient/profile', true)) return 'Patient Profile';
+    if (isActive('/dashboard/doctor/profile', true)) return 'Doctor Profile';
     if (isActive('/dashboard/patient', true)) return 'Patient Dashboard';
     if (isActive('/dashboard/doctor', true)) return 'Doctor Dashboard';
     if (isActive('/doctors', false)) return 'Find a Doctor';
@@ -92,15 +97,15 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             </SidebarHeader>
             <SidebarMenu>
                 <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActive('/dashboard/patient', true)}>
-                    <Link href="/dashboard/patient">
-                    <LayoutDashboard />
-                    Patient Dashboard
-                    </Link>
-                </SidebarMenuButton>
+                  <SidebarMenuButton asChild isActive={isActive('/dashboard/patient', true) && !isActive('/dashboard/patient/profile')}>
+                      <Link href="/dashboard/patient">
+                      <LayoutDashboard />
+                      Patient Dashboard
+                      </Link>
+                  </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                    <SidebarMenuButton asChild isActive={isActive('/dashboard/doctor', true)}>
+                    <SidebarMenuButton asChild isActive={isActive('/dashboard/doctor', true) && !isActive('/dashboard/doctor/profile')}>
                         <Link href="/dashboard/doctor">
                         <BriefcaseMedical />
                         Doctor Dashboard
@@ -131,7 +136,15 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 <SidebarMenuButton asChild isActive={isActive('/dashboard/patient/profile', true)}>
                     <Link href="/dashboard/patient/profile">
                     <UserCircle />
-                    Profile
+                    Patient Profile
+                    </Link>
+                </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                 <SidebarMenuButton asChild isActive={isActive('/dashboard/doctor/profile', true)}>
+                    <Link href="/dashboard/doctor/profile">
+                    <UserCog />
+                    Doctor Profile
                     </Link>
                 </SidebarMenuButton>
                 </SidebarMenuItem>
