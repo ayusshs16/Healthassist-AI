@@ -1,4 +1,6 @@
-import { mockPatientAppointments, mockPatient } from '@/lib/mock-data';
+"use client";
+
+import { mockPatientAppointments } from '@/lib/mock-data';
 import type { Appointment } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -6,6 +8,8 @@ import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, CheckCircle, XCircle, Bot } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { usePatient } from '@/hooks/use-patient';
+import { Skeleton } from '@/components/ui/skeleton';
 
 function AppointmentCard({ appointment }: { appointment: Appointment }) {
   const statusConfig = {
@@ -56,14 +60,25 @@ function AppointmentCard({ appointment }: { appointment: Appointment }) {
 }
 
 export default function PatientDashboardPage() {
+  const { patient, isLoading } = usePatient();
   const upcomingAppointments = mockPatientAppointments.filter(a => a.status === 'upcoming');
   const pastAppointments = mockPatientAppointments.filter(a => a.status !== 'upcoming');
-  const patient = mockPatient;
+  
+  if (isLoading) {
+    return (
+        <div className="space-y-8">
+            <div>
+                <Skeleton className="h-9 w-64" />
+                <Skeleton className="h-5 w-80 mt-2" />
+            </div>
+        </div>
+    )
+  }
 
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold">Welcome back, {patient.name.split(' ')[0]}!</h1>
+        <h1 className="text-3xl font-bold">Welcome back, {patient?.name.split(' ')[0]}!</h1>
         <p className="text-muted-foreground">Here's your health dashboard for today.</p>
       </div>
 
