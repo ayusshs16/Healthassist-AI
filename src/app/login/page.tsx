@@ -67,9 +67,15 @@ export default function LoginPage() {
 
     } catch (error: any) {
         console.error("Login error:", error);
+        let errorMessage = "Incorrect email or password. Please try again.";
+        if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+            errorMessage = "Invalid credentials. Please check your email and password.";
+        } else if (error.message) {
+            errorMessage = error.message;
+        }
         toast({
             title: "Login Failed",
-            description: error.message || "Incorrect email or password. Please try again.",
+            description: errorMessage,
             variant: "destructive",
         });
     } finally {
@@ -100,6 +106,7 @@ export default function LoginPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                disabled={isLoading}
               />
             </div>
             <div className="grid gap-2">
@@ -118,6 +125,7 @@ export default function LoginPage() {
                 required 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                disabled={isLoading}
               />
             </div>
             <Button type="submit" className="w-full" onClick={handleLogin} disabled={isLoading}>
@@ -133,7 +141,7 @@ export default function LoginPage() {
                     </span>
                 </div>
             </div>
-            <Button variant="outline" className="w-full">
+            <Button variant="outline" className="w-full" disabled={isLoading}>
               Login with Google
             </Button>
           </div>

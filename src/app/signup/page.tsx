@@ -73,7 +73,7 @@ export default function SignupPage() {
         username: username,
         email: user.email,
         role: role,
-        avatarUrl: 'https://placehold.co/128x128.png',
+        avatarUrl: `https://placehold.co/128x128.png?text=${fullName.charAt(0)}`,
       });
       
       // Update local patient context
@@ -81,7 +81,7 @@ export default function SignupPage() {
         id: user.uid,
         name: fullName,
         email: email,
-        avatarUrl: 'https://placehold.co/128x128.png',
+        avatarUrl: `https://placehold.co/128x128.png?text=${fullName.charAt(0)}`,
         phone: '',
         dateOfBirth: '',
         address: ''
@@ -93,9 +93,17 @@ export default function SignupPage() {
 
     } catch (error: any) {
       console.error("Signup error:", error);
+      let errorMessage = "An unexpected error occurred.";
+       if (error.code === 'auth/email-already-in-use') {
+        errorMessage = 'This email address is already in use.';
+      } else if (error.code === 'auth/weak-password') {
+        errorMessage = 'The password is too weak. It must be at least 6 characters long.';
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
       toast({
         title: "Signup Failed",
-        description: error.message || "An unexpected error occurred.",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
@@ -120,11 +128,11 @@ export default function SignupPage() {
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="first-name">First name</Label>
-                <Input id="first-name" placeholder="Max" required value={firstName} onChange={e => setFirstName(e.target.value)} />
+                <Input id="first-name" placeholder="Max" required value={firstName} onChange={e => setFirstName(e.target.value)} disabled={isLoading} />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="last-name">Last name</Label>
-                <Input id="last-name" placeholder="Robinson" required value={lastName} onChange={e => setLastName(e.target.value)} />
+                <Input id="last-name" placeholder="Robinson" required value={lastName} onChange={e => setLastName(e.target.value)} disabled={isLoading} />
               </div>
             </div>
              <div className="grid gap-2">
@@ -136,6 +144,7 @@ export default function SignupPage() {
                 required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                disabled={isLoading}
               />
             </div>
             <div className="grid gap-2">
@@ -147,15 +156,16 @@ export default function SignupPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                disabled={isLoading}
               />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
+              <Input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} disabled={isLoading} />
             </div>
             <div className="grid gap-2">
                 <Label>I am a...</Label>
-                 <RadioGroup defaultValue="patient" onValueChange={setRole} className="flex gap-4">
+                 <RadioGroup defaultValue="patient" onValueChange={setRole} className="flex gap-4" disabled={isLoading}>
                     <div className="flex items-center space-x-2">
                         <RadioGroupItem value="patient" id="patient" />
                         <Label htmlFor="patient">Patient</Label>
@@ -179,7 +189,7 @@ export default function SignupPage() {
                     </span>
                 </div>
             </div>
-            <Button variant="outline" className="w-full">
+            <Button variant="outline" className="w-full" disabled={isLoading}>
               Sign up with Google
             </Button>
           </div>
