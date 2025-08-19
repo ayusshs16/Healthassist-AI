@@ -20,7 +20,7 @@ export const mockDoctors: Doctor[] = [
     consultationFee: 250,
     availability: ['Monday 9am-12pm', 'Wednesday 2pm-5pm', 'Friday 9am-12pm'],
     bio: 'Dr. Sarah Johnson is a board-certified cardiologist with over 15 years of experience in treating heart conditions. She is a fellow of the American College of Cardiology.',
-    avatarUrl: '/assets/doc1.png',
+    avatarUrl: 'https://placehold.co/250x250.png',
     rating: 4.9,
   },
   {
@@ -31,7 +31,7 @@ export const mockDoctors: Doctor[] = [
     consultationFee: 180,
     availability: ['Tuesday 10am-1pm', 'Thursday 1pm-4pm'],
     bio: 'Dr. Michael Lee specializes in medical and cosmetic dermatology. He is known for his patient-centric approach and expertise in treating rare skin disorders.',
-    avatarUrl: '/assets/doc2.png',
+    avatarUrl: 'https://placehold.co/250x250.png',
     rating: 4.8,
   },
   {
@@ -42,7 +42,7 @@ export const mockDoctors: Doctor[] = [
     consultationFee: 150,
     availability: ['Monday 1pm-5pm', 'Tuesday 9am-12pm', 'Thursday 9am-12pm'],
     bio: 'Dr. Emily Carter is a compassionate pediatrician dedicated to providing comprehensive care for children from infancy through adolescence.',
-    avatarUrl: '/assets/doc3.png',
+    avatarUrl: 'https://placehold.co/250x250.png',
     rating: 4.9,
   },
   {
@@ -53,7 +53,7 @@ export const mockDoctors: Doctor[] = [
     consultationFee: 300,
     availability: ['Wednesday 9am-1pm', 'Friday 1pm-5pm'],
     bio: 'Dr. James Smith is a leading neurologist with extensive experience in diagnosing and treating complex neurological conditions such as epilepsy and Parkinson\'s disease.',
-    avatarUrl: '/assets/doc4.png',
+    avatarUrl: 'https://placehold.co/250x250.png',
     rating: 4.7,
   },
   {
@@ -64,7 +64,7 @@ export const mockDoctors: Doctor[] = [
     consultationFee: 200,
     availability: ['Tuesday 9am-12pm', 'Thursday 2pm-5pm'],
     bio: 'Dr. Jessica Brown specializes in sports medicine and joint replacement surgery, helping patients regain mobility and live pain-free.',
-    avatarUrl: '/assets/doc5.png',
+    avatarUrl: 'https://placehold.co/250x250.png',
     rating: 4.8,
   },
   {
@@ -75,7 +75,7 @@ export const mockDoctors: Doctor[] = [
     consultationFee: 220,
     availability: ['Monday 10am-1pm', 'Wednesday 10am-1pm'],
     bio: 'Dr. David Wilson provides compassionate mental health care, specializing in anxiety, depression, and stress management.',
-    avatarUrl: '/assets/doc6.png',
+    avatarUrl: 'https://placehold.co/250x250.png',
     rating: 4.9,
   },
   {
@@ -86,7 +86,7 @@ export const mockDoctors: Doctor[] = [
     consultationFee: 260,
     availability: ['Friday 9am-12pm'],
     bio: 'Dr. Laura Martinez is an expert in digestive health, treating conditions like IBS, Crohn\'s disease, and acid reflux with the latest technology.',
-    avatarUrl: '/assets/doc7.png',
+    avatarUrl: 'https://placehold.co/250x250.png',
     rating: 4.6,
   },
   {
@@ -97,7 +97,7 @@ export const mockDoctors: Doctor[] = [
     consultationFee: 280,
     availability: ['Tuesday 2pm-5pm', 'Thursday 9am-12pm'],
     bio: 'Dr. Robert Garcia is a renowned endocrinologist, focusing on diabetes, thyroid disorders, and metabolic health.',
-    avatarUrl: '/assets/doc8.png',
+    avatarUrl: 'https://placehold.co/250x250.png',
     rating: 4.9,
   },
   {
@@ -107,8 +107,8 @@ export const mockDoctors: Doctor[] = [
     experience: 11,
     consultationFee: 190,
     availability: ['Monday 9am-5pm'],
-    bio: '',
-    avatarUrl: '/assets/doc9.png',
+    bio: 'Dr. Linda Harris is an experienced ophthalmologist providing comprehensive eye care, from routine exams to advanced surgical procedures.',
+    avatarUrl: 'https://placehold.co/250x250.png',
     rating: 4.7,
   },
   {
@@ -118,8 +118,8 @@ export const mockDoctors: Doctor[] = [
     experience: 9,
     consultationFee: 120,
     availability: ['Wednesday 9am-5pm', 'Friday 9am-5pm'],
-    bio: '',
-    avatarUrl: '/assets/doc10.png',
+    bio: 'Dr. Kevin Clark is a dedicated general practitioner, committed to providing holistic and continuous care for individuals and families.',
+    avatarUrl: 'https://placehold.co/250x250.png',
     rating: 4.8,
   },
 ];
@@ -128,7 +128,7 @@ export const mockPatientAppointments: Appointment[] = [
   {
     id: 'apt1',
     patientName: 'Jane Doe',
-    doctor: { name: 'Dr. Sarah Johnson', specialization: 'Cardiologist', avatarUrl: '/assets/doc1.png' },
+    doctor: { name: 'Dr. Sarah Johnson', specialization: 'Cardiologist', avatarUrl: 'https://placehold.co/128x128.png' },
     date: '2024-08-15',
     time: '10:00 AM',
     status: 'upcoming',
@@ -136,7 +136,7 @@ export const mockPatientAppointments: Appointment[] = [
   {
     id: 'apt2',
     patientName: 'Jane Doe',
-    doctor: { name: 'Dr. Michael Lee', specialization: 'Dermatologist', avatarUrl: '/assets/doc2.png' },
+    doctor: { name: 'Dr. Michael Lee', specialization: 'Dermatologist', avatarUrl: 'https://placehold.co/128x128.png' },
     date: '2024-07-20',
     time: '02:30 PM',
     status: 'completed',
@@ -144,7 +144,7 @@ export const mockPatientAppointments: Appointment[] = [
   {
     id: 'apt3',
     patientName: 'Jane Doe',
-    doctor: { name: 'Dr. Emily Carter', specialization: 'Pediatrician', avatarUrl: '/assets/doc3.png' },
+    doctor: { name: 'Dr. Emily Carter', specialization: 'Pediatrician', avatarUrl: 'https://placehold.co/128x128.png' },
     date: '2024-07-10',
     time: '11:00 AM',
     status: 'cancelled',
@@ -155,7 +155,7 @@ export const mockDoctorAppointments: Appointment[] = [
     {
       id: 'doc_apt1',
       patientName: 'Alice Williams',
-      doctor: { name: 'Dr. Sarah Johnson', specialization: 'Cardiologist', avatarUrl: '/assets/doc1.png' },
+      doctor: { name: 'Dr. Sarah Johnson', specialization: 'Cardiologist', avatarUrl: 'https://placehold.co/128x128.png' },
       date: '2024-08-15',
       time: '10:00 AM',
       status: 'upcoming',
@@ -164,7 +164,7 @@ export const mockDoctorAppointments: Appointment[] = [
     {
       id: 'doc_apt2',
       patientName: 'Bob Brown',
-      doctor: { name: 'Dr. Sarah Johnson', specialization: 'Cardiologist', avatarUrl: '/assets/doc1.png' },
+      doctor: { name: 'Dr. Sarah Johnson', specialization: 'Cardiologist', avatarUrl: 'https://placehold.co/128x128.png' },
       date: '2024-08-15',
       time: '11:00 AM',
       status: 'upcoming',
@@ -173,7 +173,7 @@ export const mockDoctorAppointments: Appointment[] = [
     {
       id: 'doc_apt3',
       patientName: 'Charlie Davis',
-      doctor: { name: 'Dr. Sarah Johnson', specialization: 'Cardiologist', avatarUrl: '/assets/doc1.png' },
+      doctor: { name: 'Dr. Sarah Johnson', specialization: 'Cardiologist', avatarUrl: 'https://placehold.co/128x128.png' },
       date: '2024-07-22',
       time: '09:00 AM',
       status: 'completed',
