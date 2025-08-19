@@ -19,6 +19,7 @@ export function DoctorCard({ doctor }: { doctor: Doctor }) {
                   width={250}
                   height={192}
                   className="w-full h-full object-cover"
+                  data-ai-hint="doctor professional"
                 />
             </CardHeader>
             <CardContent className="flex-grow p-4">
