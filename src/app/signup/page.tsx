@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import {
@@ -10,8 +12,12 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { AppLogo } from "@/components/icons"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { useState } from "react";
 
 export default function SignupPage() {
+  const [role, setRole] = useState("patient");
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-background">
       <Card className="mx-auto max-w-sm w-full">
@@ -49,9 +55,32 @@ export default function SignupPage() {
               <Label htmlFor="password">Password</Label>
               <Input id="password" type="password" />
             </div>
+            <div className="grid gap-2">
+                <Label>I am a...</Label>
+                 <RadioGroup defaultValue="patient" onValueChange={setRole} className="flex gap-4">
+                    <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="patient" id="patient" />
+                        <Label htmlFor="patient">Patient</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="doctor" id="doctor" />
+                        <Label htmlFor="doctor">Doctor</Label>
+                    </div>
+                </RadioGroup>
+            </div>
             <Button type="submit" className="w-full" asChild>
-                <Link href="/dashboard/patient">Create an account</Link>
+                <Link href={role === 'patient' ? "/dashboard/patient" : "/dashboard/doctor"}>Create an account</Link>
             </Button>
+            <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                    <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-background px-2 text-muted-foreground">
+                    Or sign up with
+                    </span>
+                </div>
+            </div>
             <Button variant="outline" className="w-full">
               Sign up with Google
             </Button>

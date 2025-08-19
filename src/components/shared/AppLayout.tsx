@@ -33,7 +33,6 @@ import { PatientProvider, usePatient } from "@/hooks/use-patient"
 
 function UserMenu() {
     const { patient } = usePatient();
-    // In a real app, you'd have logic to determine if the user is a doctor or patient
     const pathname = usePathname();
     const isDoctor = pathname.startsWith('/dashboard/doctor');
     
@@ -76,6 +75,8 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     return pathname.startsWith(path);
   }
 
+  const isDoctorView = isActive('/dashboard/doctor');
+
   const getPageTitle = () => {
     if (isActive('/dashboard/patient/profile', true)) return 'Patient Profile';
     if (isActive('/dashboard/doctor/profile', true)) return 'Doctor Profile';
@@ -99,58 +100,68 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 </div>
             </SidebarHeader>
             <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild isActive={isActive('/dashboard/patient', true) && !isActive('/dashboard/patient/profile')}>
-                      <Link href="/dashboard/patient">
-                      <LayoutDashboard />
-                      Patient Dashboard
-                      </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                    <SidebarMenuButton asChild isActive={isActive('/dashboard/doctor', true) && !isActive('/dashboard/doctor/profile')}>
-                        <Link href="/dashboard/doctor">
-                        <BriefcaseMedical />
-                        Doctor Dashboard
-                        </Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActive('/doctors', false)}>
-                    <Link href="/doctors">
-                    <Stethoscope />
-                    Find a Doctor
-                    </Link>
-                </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActive('/chatbot', true)}>
-                    <Link href="/chatbot">
-                    <Bot />
-                    AI Chatbot
-                    </Link>
-                </SidebarMenuButton>
-                </SidebarMenuItem>
+                {isDoctorView ? (
+                  <>
+                    <SidebarMenuItem>
+                        <SidebarMenuButton asChild isActive={isActive('/dashboard/doctor', true) && !isActive('/dashboard/doctor/profile')}>
+                            <Link href="/dashboard/doctor">
+                            <BriefcaseMedical />
+                            Doctor Dashboard
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  </>
+                ) : (
+                  <>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton asChild isActive={isActive('/dashboard/patient', true) && !isActive('/dashboard/patient/profile')}>
+                          <Link href="/dashboard/patient">
+                          <LayoutDashboard />
+                          Patient Dashboard
+                          </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                     <SidebarMenuItem>
+                      <SidebarMenuButton asChild isActive={isActive('/doctors', false)}>
+                          <Link href="/doctors">
+                          <Stethoscope />
+                          Find a Doctor
+                          </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton asChild isActive={isActive('/chatbot', true)}>
+                          <Link href="/chatbot">
+                          <Bot />
+                          AI Chatbot
+                          </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  </>
+                )}
             </SidebarMenu>
             </SidebarContent>
             <SidebarFooter>
             <SidebarMenu>
-                <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActive('/dashboard/patient/profile', true)}>
-                    <Link href="/dashboard/patient/profile">
-                    <UserCircle />
-                    Patient Profile
-                    </Link>
-                </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                 <SidebarMenuButton asChild isActive={isActive('/dashboard/doctor/profile', true)}>
-                    <Link href="/dashboard/doctor/profile">
-                    <UserCog />
-                    Doctor Profile
-                    </Link>
-                </SidebarMenuButton>
-                </SidebarMenuItem>
+                 {isDoctorView ? (
+                     <SidebarMenuItem>
+                        <SidebarMenuButton asChild isActive={isActive('/dashboard/doctor/profile', true)}>
+                            <Link href="/dashboard/doctor/profile">
+                            <UserCog />
+                            Doctor Profile
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                 ) : (
+                    <SidebarMenuItem>
+                        <SidebarMenuButton asChild isActive={isActive('/dashboard/patient/profile', true)}>
+                            <Link href="/dashboard/patient/profile">
+                            <UserCircle />
+                            Patient Profile
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                 )}
                 <SidebarMenuItem>
                 <SidebarMenuButton asChild>
                     <Link href="/">
