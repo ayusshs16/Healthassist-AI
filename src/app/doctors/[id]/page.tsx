@@ -73,7 +73,7 @@ export default function DoctorProfilePage({ params }: { params: { id: string } }
             <Card>
                 <CardHeader className="flex flex-col md:flex-row gap-6 items-start">
                     <Avatar className="w-32 h-32" data-ai-hint={getDoctorHint(doctor.name)}>
-                        <AvatarImage src={doctor.avatarUrl} alt={doctor.name} />
+                        <Image src={doctor.avatarUrl} alt={doctor.name} width={128} height={128} className="rounded-full object-cover" />
                         <AvatarFallback>{doctor.name.charAt(0)}</AvatarFallback>
                     </Avatar>
                     <div className="space-y-1.5">
