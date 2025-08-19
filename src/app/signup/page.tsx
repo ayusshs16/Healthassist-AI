@@ -37,6 +37,11 @@ export default function SignupPage() {
         avatarUrl: 'https://placehold.co/128x128.png', // default avatar
     };
     updatePatient(newPatientData);
+    
+    // In a real app, you'd store this in your database.
+    // We use localStorage to simulate this for the prototype.
+    localStorage.setItem('userRole', role);
+
     const redirectPath = role === 'patient' ? "/dashboard/patient" : "/dashboard/doctor";
     router.push(redirectPath);
   };

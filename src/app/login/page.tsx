@@ -1,11 +1,32 @@
+
+"use client";
+
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { AppLogo } from "@/components/icons"
+import { usePatient } from "@/hooks/use-patient";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const { patient } = usePatient();
+  const router = useRouter();
+
+  const handleLogin = () => {
+    // In a real app, you would have authentication logic here.
+    // We'll check the stored 'patient' data to simulate role-based redirect.
+    // This is a simplified example; real auth would be more complex.
+    const role = localStorage.getItem('userRole') || 'patient';
+
+    if (role === 'doctor') {
+      router.push('/dashboard/doctor');
+    } else {
+      router.push('/dashboard/patient');
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-background">
       <Card className="mx-auto max-w-sm w-full">
@@ -41,14 +62,9 @@ export default function LoginPage() {
               </div>
               <Input id="password" type="password" required />
             </div>
-            <div className="grid grid-cols-2 gap-4">
-                <Button type="submit" className="w-full" asChild>
-                    <Link href="/dashboard/patient">Login as Patient</Link>
-                </Button>
-                 <Button type="submit" className="w-full" asChild>
-                    <Link href="/dashboard/doctor">Login as Doctor</Link>
-                </Button>
-            </div>
+            <Button type="submit" className="w-full" onClick={handleLogin}>
+                Login
+            </Button>
             <div className="relative">
                 <div className="absolute inset-0 flex items-center">
                     <span className="w-full border-t" />
