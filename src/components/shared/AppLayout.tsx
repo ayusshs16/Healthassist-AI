@@ -30,16 +30,14 @@ import { Button } from "@/components/ui/button"
 import { usePathname } from "next/navigation"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { PatientProvider, usePatient } from "@/hooks/use-patient"
+import { usePatient } from "@/hooks/use-patient"
 
 function UserMenu() {
     const { patient } = usePatient();
     const pathname = usePathname();
     const isDoctor = pathname.startsWith('/dashboard/doctor');
     
-    // Hooks must be called unconditionally at the top level.
     if (!patient) {
-        // You can return a loading state or null, but hooks can't be called after this.
         return null; 
     }
 
@@ -94,107 +92,105 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
 
   return (
-    <PatientProvider>
-        <SidebarProvider>
-        <Sidebar>
-            <SidebarContent>
-            <SidebarHeader>
-                <div className="flex items-center gap-2">
-                <AppLogo className="w-8 h-8 text-primary" />
-                <span className="text-lg font-semibold">HealthAssist AI</span>
-                </div>
-            </SidebarHeader>
-            <SidebarMenu>
-                {isDoctorView ? (
-                  <>
-                    <SidebarMenuItem>
-                        <SidebarMenuButton asChild isActive={isActive('/dashboard/doctor', true) && !isActive('/dashboard/doctor/profile')}>
-                            <Link href="/dashboard/doctor">
-                            <BriefcaseMedical />
-                            Doctor Dashboard
-                            </Link>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  </>
-                ) : (
-                  <>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton asChild isActive={isActive('/dashboard/patient', true) && !isActive('/dashboard/patient/profile')}>
-                          <Link href="/dashboard/patient">
-                          <LayoutDashboard />
-                          Patient Dashboard
-                          </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                     <SidebarMenuItem>
-                      <SidebarMenuButton asChild isActive={isActive('/doctors', false)}>
-                          <Link href="/doctors">
-                          <Stethoscope />
-                          Find a Doctor
-                          </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton asChild isActive={isActive('/chatbot', true)}>
-                          <Link href="/chatbot">
-                          <Bot />
-                          AI Chatbot
-                          </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  </>
-                )}
-            </SidebarMenu>
-            </SidebarContent>
-            <SidebarFooter>
-            <SidebarMenu>
-                 {isDoctorView ? (
-                     <SidebarMenuItem>
-                        <SidebarMenuButton asChild isActive={isActive('/dashboard/doctor/profile', true)}>
-                            <Link href="/dashboard/doctor/profile">
-                            <UserCog />
-                            Doctor Profile
-                            </Link>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                 ) : (
-                    <SidebarMenuItem>
-                        <SidebarMenuButton asChild isActive={isActive('/dashboard/patient/profile', true)}>
-                            <Link href="/dashboard/patient/profile">
-                            <UserCircle />
-                            Patient Profile
-                            </Link>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                 )}
+    <SidebarProvider>
+    <Sidebar>
+        <SidebarContent>
+        <SidebarHeader>
+            <div className="flex items-center gap-2">
+            <AppLogo className="w-8 h-8 text-primary" />
+            <span className="text-lg font-semibold">HealthAssist AI</span>
+            </div>
+        </SidebarHeader>
+        <SidebarMenu>
+            {isDoctorView ? (
+              <>
                 <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                    <Link href="/">
-                    <LogOut />
-                    Logout
-                    </Link>
-                </SidebarMenuButton>
+                    <SidebarMenuButton asChild isActive={isActive('/dashboard/doctor', true) && !isActive('/dashboard/doctor/profile')}>
+                        <Link href="/dashboard/doctor">
+                        <BriefcaseMedical />
+                        Doctor Dashboard
+                        </Link>
+                    </SidebarMenuButton>
                 </SidebarMenuItem>
-            </SidebarMenu>
-            </SidebarFooter>
-        </Sidebar>
-        <SidebarInset>
-            <header className="flex h-14 items-center gap-4 border-b bg-card px-6">
-                <SidebarTrigger className="md:hidden"/>
-                <div className="flex-1">
-                <h1 className="text-lg font-semibold capitalize">
-                    {getPageTitle()}
-                </h1>
-                </div>
-                <div>
-                  <UserMenu />
-                </div>
-            </header>
-            <main className="flex-1 p-4 md:p-6 bg-background">
-            {children}
-            </main>
-        </SidebarInset>
-        </SidebarProvider>
-    </PatientProvider>
+              </>
+            ) : (
+              <>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild isActive={isActive('/dashboard/patient', true) && !isActive('/dashboard/patient/profile')}>
+                      <Link href="/dashboard/patient">
+                      <LayoutDashboard />
+                      Patient Dashboard
+                      </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                 <SidebarMenuItem>
+                  <SidebarMenuButton asChild isActive={isActive('/doctors', false)}>
+                      <Link href="/doctors">
+                      <Stethoscope />
+                      Find a Doctor
+                      </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild isActive={isActive('/chatbot', true)}>
+                      <Link href="/chatbot">
+                      <Bot />
+                      AI Chatbot
+                      </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </>
+            )}
+        </SidebarMenu>
+        </SidebarContent>
+        <SidebarFooter>
+        <SidebarMenu>
+             {isDoctorView ? (
+                 <SidebarMenuItem>
+                    <SidebarMenuButton asChild isActive={isActive('/dashboard/doctor/profile', true)}>
+                        <Link href="/dashboard/doctor/profile">
+                        <UserCog />
+                        Doctor Profile
+                        </Link>
+                    </SidebarMenuButton>
+                </SidebarMenuItem>
+             ) : (
+                <SidebarMenuItem>
+                    <SidebarMenuButton asChild isActive={isActive('/dashboard/patient/profile', true)}>
+                        <Link href="/dashboard/patient/profile">
+                        <UserCircle />
+                        Patient Profile
+                        </Link>
+                    </SidebarMenuButton>
+                </SidebarMenuItem>
+             )}
+            <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+                <Link href="/">
+                <LogOut />
+                Logout
+                </Link>
+            </SidebarMenuButton>
+            </SidebarMenuItem>
+        </SidebarMenu>
+        </SidebarFooter>
+    </Sidebar>
+    <SidebarInset>
+        <header className="flex h-14 items-center gap-4 border-b bg-card px-6">
+            <SidebarTrigger className="md:hidden"/>
+            <div className="flex-1">
+            <h1 className="text-lg font-semibold capitalize">
+                {getPageTitle()}
+            </h1>
+            </div>
+            <div>
+              <UserMenu />
+            </div>
+        </header>
+        <main className="flex-1 p-4 md:p-6 bg-background">
+        {children}
+        </main>
+    </SidebarInset>
+    </SidebarProvider>
   )
 }
