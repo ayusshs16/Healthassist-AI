@@ -1,3 +1,5 @@
+"use client";
+
 import { mockDoctorAppointments, mockDoctors } from '@/lib/mock-data';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -7,17 +9,46 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { MoreHorizontal } from 'lucide-react';
+import { MoreHorizontal, Mail, Loader2 } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
+import { useState } from 'react';
+import { useToast } from '@/hooks/use-toast';
+import { sendEmail } from '@/ai/flows/send-email-flow';
+
 
 export default function DoctorDashboardPage() {
   const doctorProfile = mockDoctors[0]; // Assuming Dr. Sarah Johnson
+  const { toast } = useToast();
+  const [isSending, setIsSending] = useState<string | null>(null);
+
+  const handleContactPatient = async (patientName: string) => {
+    setIsSending(patientName);
+    try {
+      await sendEmail({
+        to: 'patient@example.com', // Use actual patient email in a real app
+        subject: `A message from ${doctorProfile.name}`,
+        body: `This is a message from your doctor, ${doctorProfile.name}. Please log in to the portal to view details.`,
+      });
+      toast({
+        title: "Email Sent",
+        description: `An email has been sent to ${patientName}.`
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send email.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSending(null);
+    }
+  };
 
   return (
     <div className="grid gap-6 lg:grid-cols-3">
@@ -57,9 +88,20 @@ export default function DoctorDashboardPage() {
                                     </Button>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent align="end">
-                                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                    <DropdownMenuItem>View Details</DropdownMenuItem>
-                                    <DropdownMenuItem>Cancel</DropdownMenuItem>
+                                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                        <DropdownMenuItem>View Details</DropdownMenuItem>
+                                        <DropdownMenuItem
+                                            onClick={() => handleContactPatient(appointment.patientName)}
+                                            disabled={isSending === appointment.patientName}
+                                        >
+                                            {isSending === appointment.patientName ? (
+                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                            ) : (
+                                                <Mail className="mr-2 h-4 w-4" />
+                                            )}
+                                            <span>Contact Patient</span>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>Cancel</DropdownMenuItem>
                                     </DropdownMenuContent>
                                 </DropdownMenu>
                                 </TableCell>

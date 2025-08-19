@@ -1,19 +1,61 @@
+"use client";
+
 import { AppLayout } from "@/components/shared/AppLayout";
-import { mockDoctors } from "@/lib/mock-data";
+import { mockDoctors, mockPatient } from "@/lib/mock-data";
 import { notFound } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Star, Briefcase, Award, BadgeDollarSign, Calendar, Clock } from "lucide-react";
+import { Star, Briefcase, Award, BadgeDollarSign, Calendar, Clock, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import React, { useState } from "react";
+import { sendEmail } from "@/ai/flows/send-email-flow";
+import { useToast } from "@/hooks/use-toast";
+import { usePatient } from "@/hooks/use-patient";
 
 export default function DoctorProfilePage({ params }: { params: { id: string } }) {
   const doctor = mockDoctors.find(d => d.id === params.id);
+  const { patient } = usePatient();
+  const [isBooking, setIsBooking] = useState(false);
+  const { toast } = useToast();
 
   if (!doctor) {
     notFound();
   }
+
+  const handleBooking = async (slot: string) => {
+    if (!patient) return;
+    setIsBooking(true);
+    try {
+      // Email to patient
+      await sendEmail({
+        to: patient.email,
+        subject: `Appointment Confirmed with ${doctor.name}`,
+        body: `Hi ${patient.name},\n\nYour appointment with ${doctor.name} for ${slot} has been confirmed.\n\nThank you,\nHealthAssist AI`,
+      });
+      // Email to doctor
+      await sendEmail({
+        to: 'doctor@example.com', // In a real app, use doctor.email
+        subject: `New Appointment with ${patient.name}`,
+        body: `Hi ${doctor.name},\n\nYou have a new appointment with ${patient.name} for ${slot}.\n\nThank you,\nHealthAssist AI`,
+      });
+
+      toast({
+        title: "Booking Successful",
+        description: `Your appointment with ${doctor.name} has been booked.`,
+      });
+    } catch (error) {
+      console.error("Failed to book appointment", error);
+      toast({
+        title: "Booking Failed",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsBooking(false);
+    }
+  };
 
   return (
     <AppLayout>
@@ -60,13 +102,18 @@ export default function DoctorProfilePage({ params }: { params: { id: string } }
                     <p className="text-muted-foreground">Select an available time slot to book your consultation.</p>
                     <div className="space-y-2">
                         {doctor.availability.map((slot, index) => (
-                            <Button key={index} variant="outline" className="w-full justify-start gap-2">
-                                <Clock className="w-4 h-4" />
+                            <Button 
+                                key={index} 
+                                variant="outline" 
+                                className="w-full justify-start gap-2"
+                                onClick={() => handleBooking(slot)}
+                                disabled={isBooking}
+                            >
+                                {isBooking ? <Loader2 className="w-4 h-4 animate-spin" /> : <Clock className="w-4 h-4" />}
                                 {slot}
                             </Button>
                         ))}
                     </div>
-                    <Button className="w-full">Confirm Booking</Button>
                 </CardContent>
             </Card>
         </div>
