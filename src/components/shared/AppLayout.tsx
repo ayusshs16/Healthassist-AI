@@ -1,3 +1,4 @@
+
 "use client"
 
 import Link from "next/link"
@@ -32,10 +33,12 @@ import { PatientProvider, usePatient } from "@/hooks/use-patient"
 
 function UserMenu() {
     const { patient } = usePatient();
-    if (!patient) return null;
     // In a real app, you'd have logic to determine if the user is a doctor or patient
-    const isDoctor = usePathname().startsWith('/dashboard/doctor');
+    const pathname = usePathname();
+    const isDoctor = pathname.startsWith('/dashboard/doctor');
     
+    if (!patient) return null;
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
