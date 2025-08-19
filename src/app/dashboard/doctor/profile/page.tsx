@@ -11,16 +11,17 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import React, { useRef, useState, useEffect } from 'react';
 import { mockDoctors } from '@/lib/mock-data';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function DoctorProfilePage() {
-  const { patient } = usePatient();
+  const { patient, updatePatient, isLoading } = usePatient();
   // Using a mix of patient context and mock data for doctor profile
   const mockDoctor = mockDoctors[0]; 
 
-  const [name, setName] = useState(patient?.name || mockDoctor.name);
-  const [specialization, setSpecialization] = useState(mockDoctor.specialization);
-  const [bio, setBio] = useState(mockDoctor.bio);
-  const [avatar, setAvatar] = useState(patient?.avatarUrl || mockDoctor.avatarUrl);
+  const [name, setName] = useState(patient?.name || '');
+  const [specialization, setSpecialization] = useState(mockDoctor.specialization); // Still mock
+  const [bio, setBio] = useState(mockDoctor.bio); // Still mock
+  const [avatar, setAvatar] = useState(patient?.avatarUrl || '');
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
@@ -34,11 +35,13 @@ export default function DoctorProfilePage() {
 
 
   const handleSaveChanges = () => {
-    // In a real app, you would also update the patient context here if needed
-    toast({
-        title: "Profile Updated",
-        description: "Your information has been successfully saved.",
-    });
+    if (patient) {
+        updatePatient({ ...patient, name, avatarUrl: avatar });
+        toast({
+            title: "Profile Updated",
+            description: "Your information has been successfully saved.",
+        });
+    }
   };
 
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,6 +54,31 @@ export default function DoctorProfilePage() {
       reader.readAsDataURL(file);
     }
   };
+  
+  if (isLoading || !patient) {
+      return (
+          <div className="grid gap-6 lg:grid-cols-3">
+              <div className="lg:col-span-2">
+                  <Card>
+                      <CardHeader>
+                          <Skeleton className="h-8 w-32" />
+                          <Skeleton className="h-5 w-64 mt-2" />
+                      </CardHeader>
+                      <CardContent className="space-y-6">
+                           <div className="flex items-center gap-6">
+                              <Skeleton className="h-24 w-24 rounded-full" />
+                              <Skeleton className="h-10 w-32" />
+                          </div>
+                          <div className="space-y-2">
+                              <Skeleton className="h-4 w-16" />
+                              <Skeleton className="h-10 w-full" />
+                          </div>
+                      </CardContent>
+                  </Card>
+              </div>
+          </div>
+      )
+  }
 
   return (
     <div className="grid gap-6 lg:grid-cols-3">

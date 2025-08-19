@@ -1,6 +1,7 @@
+
 "use client";
 
-import { mockDoctorAppointments, mockDoctors } from '@/lib/mock-data';
+import { mockDoctorAppointments } from '@/lib/mock-data';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
@@ -17,20 +18,23 @@ import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { sendEmail } from '@/ai/flows/send-email-flow';
 import Link from 'next/link';
+import { usePatient } from '@/hooks/use-patient';
+import { Skeleton } from '@/components/ui/skeleton';
 
 
 export default function DoctorDashboardPage() {
-  const doctorProfile = mockDoctors[0]; // Assuming Dr. Sarah Johnson
+  const { patient, isLoading } = usePatient(); 
   const { toast } = useToast();
   const [isSending, setIsSending] = useState<string | null>(null);
 
   const handleContactPatient = async (patientName: string) => {
+    if (!patient) return;
     setIsSending(patientName);
     try {
       await sendEmail({
         to: 'patient@example.com', // Use actual patient email in a real app
-        subject: `A message from ${doctorProfile.name}`,
-        body: `This is a message from your doctor, ${doctorProfile.name}. Please log in to the portal to view details.`,
+        subject: `A message from Dr. ${patient.name.split(' ').pop()}`,
+        body: `This is a message from your doctor, ${patient.name}. Please log in to the portal to view details.`,
       });
       toast({
         title: "Email Sent",
@@ -47,12 +51,28 @@ export default function DoctorDashboardPage() {
     }
   };
 
+  if (isLoading || !patient) {
+    return (
+        <div className="space-y-6">
+            <Card>
+                <CardHeader>
+                    <Skeleton className="h-8 w-48" />
+                    <Skeleton className="h-5 w-64 mt-2" />
+                </CardHeader>
+                <CardContent>
+                    <Skeleton className="h-48 w-full" />
+                </CardContent>
+            </Card>
+        </div>
+    )
+  }
+
   return (
     <div className="space-y-6">
       <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
-              <CardTitle>Welcome back, {doctorProfile.name}!</CardTitle>
+              <CardTitle>Welcome back, Dr. {patient.name.split(' ').pop()}!</CardTitle>
               <CardDescription>Here is your appointment schedule for today.</CardDescription>
             </div>
             <Button asChild>
