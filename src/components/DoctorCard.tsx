@@ -3,7 +3,6 @@
 
 import type { Doctor } from "@/lib/types";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Star } from "lucide-react";
@@ -13,13 +12,13 @@ import Image from "next/image";
 export function DoctorCard({ doctor }: { doctor: Doctor }) {
     return (
         <Card className="flex flex-col h-full overflow-hidden hover:shadow-lg transition-shadow duration-300">
-            <CardHeader className="p-0">
+            <CardHeader className="p-0 relative h-48 w-full">
                 <Image 
                   src={doctor.avatarUrl} 
                   alt={doctor.name}
-                  width={200}
-                  height={200}
-                  className="w-full h-48 object-cover"
+                  layout="fill"
+                  objectFit="cover"
+                  className="w-full h-full"
                 />
             </CardHeader>
             <CardContent className="flex-grow p-4">

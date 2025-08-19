@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { usePatient } from '@/hooks/use-patient';
 import { Skeleton } from '@/components/ui/skeleton';
+import Image from 'next/image';
 
 function AppointmentCard({ appointment }: { appointment: Appointment }) {
   const statusConfig = {
@@ -32,10 +33,9 @@ function AppointmentCard({ appointment }: { appointment: Appointment }) {
     <Card className="hover:shadow-md transition-shadow">
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <div className="flex items-center gap-4">
-          <Avatar>
-            <AvatarImage src={appointment.doctor.avatarUrl} alt={appointment.doctor.name} />
-            <AvatarFallback>{appointment.doctor.name.charAt(0)}</AvatarFallback>
-          </Avatar>
+            <div className="relative h-10 w-10">
+                <Image src={appointment.doctor.avatarUrl} alt={appointment.doctor.name} layout="fill" objectFit="cover" className="rounded-full"/>
+            </div>
           <div>
             <CardTitle className="text-lg">{appointment.doctor.name}</CardTitle>
             <CardDescription>{appointment.doctor.specialization}</CardDescription>

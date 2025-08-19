@@ -14,6 +14,7 @@ import React, { useState } from "react";
 import { sendEmail } from "@/ai/flows/send-email-flow";
 import { useToast } from "@/hooks/use-toast";
 import { usePatient } from "@/hooks/use-patient";
+import Image from "next/image";
 
 export default function DoctorProfilePage({ params }: { params: { id: string } }) {
   const doctor = mockDoctors.find(d => d.id === params.id);
@@ -64,10 +65,9 @@ export default function DoctorProfilePage({ params }: { params: { id: string } }
         <div className="md:col-span-2 space-y-8">
             <Card>
                 <CardHeader className="flex flex-col md:flex-row gap-6 items-start">
-                    <Avatar className="w-32 h-32 border-4 border-primary/20">
-                        <AvatarImage src={doctor.avatarUrl} alt={doctor.name} />
-                        <AvatarFallback>{doctor.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                    </Avatar>
+                    <div className="relative w-32 h-32">
+                        <Image src={doctor.avatarUrl} alt={doctor.name} layout="fill" objectFit="cover" className="rounded-full" />
+                    </div>
                     <div className="space-y-1.5">
                         <CardTitle className="text-3xl font-bold">{doctor.name}</CardTitle>
                         <CardDescription className="text-lg text-primary">{doctor.specialization}</CardDescription>
