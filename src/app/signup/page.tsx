@@ -93,9 +93,9 @@ export default function SignupPage() {
 
     } catch (error: any) {
       console.error("Signup error:", error);
-      let errorMessage = "An unexpected error occurred.";
+      let errorMessage = "An unexpected error occurred. Please try again.";
        if (error.code === 'auth/email-already-in-use') {
-        errorMessage = 'This email address is already in use.';
+        errorMessage = 'This email address is already registered. Please login or use a different email.';
       } else if (error.code === 'auth/weak-password') {
         errorMessage = 'The password is too weak. It must be at least 6 characters long.';
       } else if (error.message) {
