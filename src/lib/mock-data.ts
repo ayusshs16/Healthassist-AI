@@ -3,6 +3,11 @@ import type { Doctor, Appointment, Patient } from './types';
 export const mockPatient: Patient = {
   id: 'user1',
   name: 'Jane Doe',
+  email: 'jane.doe@example.com',
+  phone: '123-456-7890',
+  dateOfBirth: '1990-05-21',
+  address: '123 Health St, Wellness City, 12345',
+  avatarUrl: 'https://placehold.co/128x128.png',
 };
 
 export const mockDoctors: Doctor[] = [

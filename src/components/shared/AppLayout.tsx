@@ -25,16 +25,30 @@ import {
 import { AppLogo } from "@/components/icons"
 import { Button } from "@/components/ui/button"
 import { usePathname } from "next/navigation"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { mockPatient } from "@/lib/mock-data"
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const patient = mockPatient;
 
-  const isActive = (path: string) => {
-    if (path === '/doctors' && pathname.startsWith('/doctors')) {
-      return true;
+  const isActive = (path: string, exact: boolean = false) => {
+    if (exact) {
+      return pathname === path;
     }
-    return pathname === path;
+    return pathname.startsWith(path);
   }
+
+  const getPageTitle = () => {
+    if (isActive('/dashboard/patient/profile', true)) return 'Patient Profile';
+    if (isActive('/dashboard/patient', true)) return 'Patient Dashboard';
+    if (isActive('/dashboard/doctor', true)) return 'Doctor Dashboard';
+    if (isActive('/doctors', false)) return 'Find a Doctor';
+    if (isActive('/chatbot', true)) return 'AI Chatbot';
+    return "Dashboard";
+  }
+
 
   return (
     <SidebarProvider>
@@ -48,7 +62,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           </SidebarHeader>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild isActive={isActive('/dashboard/patient')}>
+              <SidebarMenuButton asChild isActive={isActive('/dashboard/patient', true)}>
                 <Link href="/dashboard/patient">
                   <LayoutDashboard />
                   Patient Dashboard
@@ -56,7 +70,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={isActive('/dashboard/doctor')}>
+                <SidebarMenuButton asChild isActive={isActive('/dashboard/doctor', true)}>
                     <Link href="/dashboard/doctor">
                     <BriefcaseMedical />
                     Doctor Dashboard
@@ -64,7 +78,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild isActive={isActive('/doctors')}>
+              <SidebarMenuButton asChild isActive={isActive('/doctors', false)}>
                 <Link href="/doctors">
                   <Stethoscope />
                   Find a Doctor
@@ -72,7 +86,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild isActive={isActive('/chatbot')}>
+              <SidebarMenuButton asChild isActive={isActive('/chatbot', true)}>
                 <Link href="/chatbot">
                   <Bot />
                   AI Chatbot
@@ -84,9 +98,11 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         <SidebarFooter>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton>
-                <UserCircle />
-                Profile
+              <SidebarMenuButton asChild isActive={isActive('/dashboard/patient/profile', true)}>
+                <Link href="/dashboard/patient/profile">
+                  <UserCircle />
+                  Profile
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
@@ -105,14 +121,32 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <SidebarTrigger className="md:hidden"/>
             <div className="flex-1">
               <h1 className="text-lg font-semibold capitalize">
-                {pathname.split('/').pop()?.replace('-', ' ')}
+                {getPageTitle()}
               </h1>
             </div>
             <div>
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <UserCircle className="h-6 w-6" />
-                <span className="sr-only">Toggle user menu</span>
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="rounded-full">
+                    <Avatar className="h-8 w-8">
+                      <AvatarImage src={patient.avatarUrl} />
+                      <AvatarFallback>{patient.name.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link href="/dashboard/patient/profile">Profile</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>Settings</DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                     <Link href="/">Logout</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
         </header>
         <main className="flex-1 p-4 md:p-6 bg-background">
