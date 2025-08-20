@@ -31,7 +31,7 @@ export const mockDoctors: Doctor[] = [
     consultationFee: 180,
     availability: ['Tuesday 10am-1pm', 'Thursday 1pm-4pm'],
     bio: 'Dr. Michael Lee specializes in medical and cosmetic dermatology. He is known for his patient-centric approach and expertise in treating rare skin disorders.',
-    avatarUrl: 'https://placehold.co/250x250.png',
+    avatarUrl: 'https://img.freepik.com/free-photo/portrait-smiling-male-doctor_171337-1532.jpg?w=826&t=st=1721758168~exp=1721758768~hmac=a706598e3a2485e13a936a79b2a0b17849e794711855a9b9a629b35b69c4c5c8',
     rating: 4.8,
   },
   {
@@ -53,7 +53,7 @@ export const mockDoctors: Doctor[] = [
     consultationFee: 300,
     availability: ['Wednesday 9am-1pm', 'Friday 1pm-5pm'],
     bio: 'Dr. James Smith is a leading neurologist with extensive experience in diagnosing and treating complex neurological conditions such as epilepsy and Parkinson\'s disease.',
-    avatarUrl: 'https://placehold.co/250x250.png',
+    avatarUrl: 'https://img.freepik.com/free-photo/portrait-smiling-male-doctor_171337-1532.jpg?w=826&t=st=1721758168~exp=1721758768~hmac=a706598e3a2485e13a936a79b2a0b17849e794711855a9b9a629b35b69c4c5c8',
     rating: 4.7,
   },
   {
@@ -75,7 +75,7 @@ export const mockDoctors: Doctor[] = [
     consultationFee: 220,
     availability: ['Monday 10am-1pm', 'Wednesday 10am-1pm'],
     bio: 'Dr. David Wilson provides compassionate mental health care, specializing in anxiety, depression, and stress management.',
-    avatarUrl: 'https://placehold.co/250x250.png',
+    avatarUrl: 'https://img.freepik.com/free-photo/portrait-smiling-male-doctor_171337-1532.jpg?w=826&t=st=1721758168~exp=1721758768~hmac=a706598e3a2485e13a936a79b2a0b17849e794711855a9b9a629b35b69c4c5c8',
     rating: 4.9,
   },
   {
@@ -97,7 +97,7 @@ export const mockDoctors: Doctor[] = [
     consultationFee: 280,
     availability: ['Tuesday 2pm-5pm', 'Thursday 9am-12pm'],
     bio: 'Dr. Robert Garcia is a renowned endocrinologist, focusing on diabetes, thyroid disorders, and metabolic health.',
-    avatarUrl: 'https://placehold.co/250x250.png',
+    avatarUrl: 'https://img.freepik.com/free-photo/portrait-smiling-male-doctor_171337-1532.jpg?w=826&t=st=1721758168~exp=1721758768~hmac=a706598e3a2485e13a936a79b2a0b17849e794711855a9b9a629b35b69c4c5c8',
     rating: 4.9,
   },
   {
@@ -119,7 +119,7 @@ export const mockDoctors: Doctor[] = [
     consultationFee: 120,
     availability: ['Wednesday 9am-5pm', 'Friday 9am-5pm'],
     bio: 'Dr. Kevin Clark is a dedicated general practitioner, committed to providing holistic and continuous care for individuals and families.',
-    avatarUrl: 'https://placehold.co/250x250.png',
+    avatarUrl: 'https://img.freepik.com/free-photo/portrait-smiling-male-doctor_171337-1532.jpg?w=826&t=st=1721758168~exp=1721758768~hmac=a706598e3a2485e13a936a79b2a0b17849e794711855a9b9a629b35b69c4c5c8',
     rating: 4.8,
   },
 ];
@@ -136,7 +136,7 @@ export const mockPatientAppointments: Appointment[] = [
   {
     id: 'apt2',
     patientName: 'Jane Doe',
-    doctor: { name: 'Dr. Michael Lee', specialization: 'Dermatologist', avatarUrl: 'https://placehold.co/128x128.png' },
+    doctor: { name: 'Dr. Michael Lee', specialization: 'Dermatologist', avatarUrl: 'https://img.freepik.com/free-photo/portrait-smiling-male-doctor_171337-1532.jpg?w=826&t=st=1721758168~exp=1721758768~hmac=a706598e3a2485e13a936a79b2a0b17849e794711855a9b9a629b35b69c4c5c8' },
     date: '2024-07-20',
     time: '02:30 PM',
     status: 'completed',
@@ -180,3 +180,5 @@ export const mockDoctorAppointments: Appointment[] = [
       notes: "Annual check-up. EKG normal."
     },
   ];
+
+    
