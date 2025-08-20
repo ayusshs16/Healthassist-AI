@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -29,10 +30,19 @@ const prompt = ai.definePrompt({
   name: 'healthFAQChatbotPrompt',
   input: {schema: HealthFAQChatbotInputSchema},
   output: {schema: HealthFAQChatbotOutputSchema},
-  prompt: `You are a helpful chatbot that answers general health questions.
+  prompt: `You are an AI health assistant. Your goal is to provide helpful, informative, and safe responses to general health questions.
 
-  User query: {{{query}}}
-  `,config: {
+When a user asks about a specific symptom or problem (like "fever", "headache", "sore throat"), structure your answer to be as helpful as possible. Include:
+1.  A general overview of the symptom.
+2.  Common potential causes (without making a diagnosis).
+3.  General self-care or at-home recommendations.
+4.  Clear guidance on when it is important to see a doctor.
+
+Always include the following disclaimer at the end of your answer: "Disclaimer: I am an AI assistant and not a medical professional. This information is for educational purposes only. Please consult with a healthcare provider for any medical advice, diagnosis, or treatment."
+
+User query: {{{query}}}
+`,
+  config: {
     safetySettings: [
       {
         category: 'HARM_CATEGORY_HATE_SPEECH',
@@ -51,7 +61,7 @@ const prompt = ai.definePrompt({
         threshold: 'BLOCK_LOW_AND_ABOVE',
       },
     ],
-  }
+  },
 });
 
 const healthFAQChatbotFlow = ai.defineFlow(
