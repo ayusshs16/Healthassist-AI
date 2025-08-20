@@ -20,7 +20,7 @@ export const mockDoctors: Doctor[] = [
     consultationFee: 250,
     availability: ['Monday 9am-12pm', 'Wednesday 2pm-5pm', 'Friday 9am-12pm'],
     bio: 'Dr. Sarah Johnson is a board-certified cardiologist with over 15 years of experience in treating heart conditions. She is a fellow of the American College of Cardiology.',
-    avatarUrl: 'https://placehold.co/250x250.png',
+    avatarUrl: 'https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?semt=ais_hybrid&w=740&q=80',
     rating: 4.9,
   },
   {
@@ -42,7 +42,7 @@ export const mockDoctors: Doctor[] = [
     consultationFee: 150,
     availability: ['Monday 1pm-5pm', 'Tuesday 9am-12pm', 'Thursday 9am-12pm'],
     bio: 'Dr. Emily Carter is a compassionate pediatrician dedicated to providing comprehensive care for children from infancy through adolescence.',
-    avatarUrl: 'https://placehold.co/250x250.png',
+    avatarUrl: 'https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?semt=ais_hybrid&w=740&q=80',
     rating: 4.9,
   },
   {
@@ -64,7 +64,7 @@ export const mockDoctors: Doctor[] = [
     consultationFee: 200,
     availability: ['Tuesday 9am-12pm', 'Thursday 2pm-5pm'],
     bio: 'Dr. Jessica Brown specializes in sports medicine and joint replacement surgery, helping patients regain mobility and live pain-free.',
-    avatarUrl: 'https://placehold.co/250x250.png',
+    avatarUrl: 'https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?semt=ais_hybrid&w=740&q=80',
     rating: 4.8,
   },
   {
@@ -86,7 +86,7 @@ export const mockDoctors: Doctor[] = [
     consultationFee: 260,
     availability: ['Friday 9am-12pm'],
     bio: 'Dr. Laura Martinez is an expert in digestive health, treating conditions like IBS, Crohn\'s disease, and acid reflux with the latest technology.',
-    avatarUrl: 'https://placehold.co/250x250.png',
+    avatarUrl: 'https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?semt=ais_hybrid&w=740&q=80',
     rating: 4.6,
   },
   {
@@ -108,7 +108,7 @@ export const mockDoctors: Doctor[] = [
     consultationFee: 190,
     availability: ['Monday 9am-5pm'],
     bio: 'Dr. Linda Harris is an experienced ophthalmologist providing comprehensive eye care, from routine exams to advanced surgical procedures.',
-    avatarUrl: 'https://placehold.co/250x250.png',
+    avatarUrl: 'https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?semt=ais_hybrid&w=740&q=80',
     rating: 4.7,
   },
   {
@@ -128,7 +128,7 @@ export const mockPatientAppointments: Appointment[] = [
   {
     id: 'apt1',
     patientName: 'Jane Doe',
-    doctor: { name: 'Dr. Sarah Johnson', specialization: 'Cardiologist', avatarUrl: 'https://placehold.co/128x128.png' },
+    doctor: { name: 'Dr. Sarah Johnson', specialization: 'Cardiologist', avatarUrl: 'https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?semt=ais_hybrid&w=740&q=80' },
     date: '2024-08-15',
     time: '10:00 AM',
     status: 'upcoming',
@@ -144,7 +144,7 @@ export const mockPatientAppointments: Appointment[] = [
   {
     id: 'apt3',
     patientName: 'Jane Doe',
-    doctor: { name: 'Dr. Emily Carter', specialization: 'Pediatrician', avatarUrl: 'https://placehold.co/128x128.png' },
+    doctor: { name: 'Dr. Emily Carter', specialization: 'Pediatrician', avatarUrl: 'https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?semt=ais_hybrid&w=740&q=80' },
     date: '2024-07-10',
     time: '11:00 AM',
     status: 'cancelled',
@@ -155,7 +155,7 @@ export const mockDoctorAppointments: Appointment[] = [
     {
       id: 'doc_apt1',
       patientName: 'Alice Williams',
-      doctor: { name: 'Dr. Sarah Johnson', specialization: 'Cardiologist', avatarUrl: 'https://placehold.co/128x128.png' },
+      doctor: { name: 'Dr. Sarah Johnson', specialization: 'Cardiologist', avatarUrl: 'https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?semt=ais_hybrid&w=740&q=80' },
       date: '2024-08-15',
       time: '10:00 AM',
       status: 'upcoming',
@@ -164,7 +164,7 @@ export const mockDoctorAppointments: Appointment[] = [
     {
       id: 'doc_apt2',
       patientName: 'Bob Brown',
-      doctor: { name: 'Dr. Sarah Johnson', specialization: 'Cardiologist', avatarUrl: 'https://placehold.co/128x128.png' },
+      doctor: { name: 'Dr. Sarah Johnson', specialization: 'Cardiologist', avatarUrl: 'https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?semt=ais_hybrid&w=740&q=80' },
       date: '2024-08-15',
       time: '11:00 AM',
       status: 'upcoming',
@@ -173,7 +173,7 @@ export const mockDoctorAppointments: Appointment[] = [
     {
       id: 'doc_apt3',
       patientName: 'Charlie Davis',
-      doctor: { name: 'Dr. Sarah Johnson', specialization: 'Cardiologist', avatarUrl: 'https://placehold.co/128x128.png' },
+      doctor: { name: 'Dr. Sarah Johnson', specialization: 'Cardiologist', avatarUrl: 'https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg?semt=ais_hybrid&w=740&q=80' },
       date: '2024-07-22',
       time: '09:00 AM',
       status: 'completed',
