@@ -49,10 +49,10 @@ export default function Home() {
               <div className="flex flex-col justify-center space-y-4">
                 <div className="w-full max-w-4xl mx-auto aspect-video overflow-hidden rounded-xl bg-white my-4">
                     <Image
-                    src="https://img.freepik.com/free-vector/abstract-medical-wallpaper-template-design_3439405.jpg"
+                    src="https://img.freepik.com/free-photo/health-still-life-with-copy-space_23-2148854031.jpg?w=740"
                     width="1200"
                     height="675"
-                    alt="Abstract medical background"
+                    alt="Health still life with medical items"
                     data-ai-hint="medical background"
                     className="h-full w-full object-cover object-center"
                     />
