@@ -65,11 +65,11 @@ export default function Home() {
               </div>
               <div className="mx-auto aspect-video overflow-hidden rounded-xl lg:order-last bg-white">
                 <Image
-                  src="https://img.freepik.com/free-photo/health-still-life-with-copy-space_12412890.jpg"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS81v5NsSYqvFobUvokSZd1cAPE2soIvP4ceXD1IR5uwjG08moTAJ0W1V4&s"
                   width="600"
                   height="400"
                   alt="Hero Health"
-                  data-ai-hint="health still life"
+                  data-ai-hint="medical equipment"
                   className="h-full w-full object-cover object-center"
                 />
               </div>
