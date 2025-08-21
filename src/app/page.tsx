@@ -65,12 +65,12 @@ export default function Home() {
               </div>
               <div className="mx-auto aspect-video overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 lg:order-last">
                 <Image
-                  src="https://img.freepik.com/free-vector/national-doctor-s-day-hand-drawn-background_27374040.jpg?w=826"
+                  src="https://placehold.co/600x400.png"
                   width="600"
                   height="400"
-                  alt="Hero"
-                  data-ai-hint="medical background healthcare"
-                  className="h-full w-full object-contain object-center"
+                  alt="Hero Placeholder"
+                  data-ai-hint="medical hero"
+                  className="h-full w-full object-cover object-center"
                 />
               </div>
             </div>
