@@ -47,7 +47,7 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:gap-12 items-center justify-center text-center">
               <div className="flex flex-col justify-center space-y-4">
-                <div className="w-full max-w-4xl mx-auto aspect-video overflow-hidden rounded-xl bg-white my-4">
+                <div className="relative w-full max-w-4xl mx-auto aspect-video overflow-hidden rounded-xl bg-white my-4">
                     <Image
                     src="https://img.freepik.com/free-photo/health-still-life-with-copy-space_23-2148854031.jpg?w=740"
                     width="1200"
@@ -56,14 +56,14 @@ export default function Home() {
                     data-ai-hint="medical background"
                     className="h-full w-full object-cover object-center"
                     />
-                </div>
-                <div className="space-y-2">
-                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                    Your Health, Simplified.
-                  </h1>
-                  <p className="max-w-[600px] mx-auto text-muted-foreground md:text-xl">
-                    HealthAssist AI is your intelligent partner for finding the right doctor and getting instant health advice.
-                  </p>
+                    <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center text-white p-4">
+                         <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+                            Your Health, Simplified.
+                        </h1>
+                        <p className="max-w-[600px] mx-auto text-neutral-200 md:text-xl mt-2">
+                            HealthAssist AI is your intelligent partner for finding the right doctor and getting instant health advice.
+                        </p>
+                    </div>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center">
                   <Button size="lg" asChild>
