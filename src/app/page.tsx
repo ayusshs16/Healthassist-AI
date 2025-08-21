@@ -65,7 +65,7 @@ export default function Home() {
               </div>
               <div className="mx-auto aspect-video overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 lg:order-last">
                 <Image
-                  src="https://img.freepik.com/free-photo/medical-stethoscope-with-paper-cut-family_23-2148488217.jpg?w=1380"
+                  src="https://img.freepik.com/free-vector/national-doctor-s-day-hand-drawn-background_27374040.jpg?w=826"
                   width="600"
                   height="400"
                   alt="Hero"
