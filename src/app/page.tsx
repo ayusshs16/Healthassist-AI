@@ -63,14 +63,16 @@ export default function Home() {
                   </Button>
                 </div>
               </div>
-              <Image
-                src="https://img.freepik.com/free-photo/medical-stethoscope-with-paper-cut-family_23-2148488217.jpg?w=1380"
-                width="600"
-                height="400"
-                alt="Hero"
-                data-ai-hint="medical background healthcare"
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
-              />
+              <div className="mx-auto aspect-video overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 lg:order-last">
+                <Image
+                  src="https://img.freepik.com/free-photo/medical-stethoscope-with-paper-cut-family_23-2148488217.jpg?w=1380"
+                  width="600"
+                  height="400"
+                  alt="Hero"
+                  data-ai-hint="medical background healthcare"
+                  className="h-full w-full object-contain object-center"
+                />
+              </div>
             </div>
           </div>
         </section>
