@@ -65,7 +65,7 @@ export default function Home() {
               </div>
               <div className="mx-auto aspect-video overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 lg:order-last">
                 <Image
-                  src="https://img.freepik.com/free-vector/watercolor-medical-background_15888722.jpg?w=996"
+                  src="https://placehold.co/600x400.png"
                   width="600"
                   height="400"
                   alt="Hero Placeholder"
