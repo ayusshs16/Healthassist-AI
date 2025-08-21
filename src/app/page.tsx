@@ -63,14 +63,14 @@ export default function Home() {
                   </Button>
                 </div>
               </div>
-              <div className="mx-auto aspect-video overflow-hidden rounded-xl lg:order-last">
+              <div className="mx-auto aspect-video overflow-hidden rounded-xl lg:order-last bg-white">
                 <Image
-                  src="https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg"
+                  src="https://img.freepik.com/free-vector/watercolor-medical-background_23-2148459247.jpg"
                   width="600"
                   height="400"
                   alt="Hero Doctor"
-                  data-ai-hint="doctor smiling"
-                  className="h-full w-full object-cover object-center"
+                  data-ai-hint="medical background watercolor"
+                  className="h-full w-full object-contain object-center"
                 />
               </div>
             </div>
