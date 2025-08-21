@@ -65,12 +65,12 @@ export default function Home() {
               </div>
               <div className="mx-auto aspect-video overflow-hidden rounded-xl lg:order-last bg-white">
                 <Image
-                  src="https://img.freepik.com/free-vector/watercolor-medical-background_23-2148459247.jpg"
+                  src="https://img.freepik.com/free-photo/health-still-life-with-copy-space_12412890.jpg"
                   width="600"
                   height="400"
-                  alt="Hero Doctor"
-                  data-ai-hint="medical background watercolor"
-                  className="h-full w-full object-contain object-center"
+                  alt="Hero Health"
+                  data-ai-hint="health still life"
+                  className="h-full w-full object-cover object-center"
                 />
               </div>
             </div>
