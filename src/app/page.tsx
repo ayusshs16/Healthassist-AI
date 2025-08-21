@@ -45,7 +45,7 @@ export default function Home() {
       <main className="flex-1 pt-16">
         <section className="w-full py-20 md:py-32 lg:py-40 xl:py-56 gradient-background">
           <div className="container px-4 md:px-6">
-            <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
+            <div className="grid gap-6 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_700px]">
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
@@ -66,8 +66,8 @@ export default function Home() {
               <div className="mx-auto aspect-video overflow-hidden rounded-xl lg:order-last bg-white">
                 <Image
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS81v5NsSYqvFobUvokSZd1cAPE2soIvP4ceXD1IR5uwjG08moTAJ0W1V4&s"
-                  width="600"
-                  height="400"
+                  width="700"
+                  height="500"
                   alt="Hero Health"
                   data-ai-hint="medical equipment"
                   className="h-full w-full object-cover object-center"
