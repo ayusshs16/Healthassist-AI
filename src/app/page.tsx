@@ -63,13 +63,13 @@ export default function Home() {
                   </Button>
                 </div>
               </div>
-              <div className="mx-auto aspect-video overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 lg:order-last">
+              <div className="mx-auto aspect-video overflow-hidden rounded-xl lg:order-last">
                 <Image
-                  src="https://placehold.co/600x400.png"
+                  src="https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg"
                   width="600"
                   height="400"
-                  alt="Hero Placeholder"
-                  data-ai-hint="medical background"
+                  alt="Hero Doctor"
+                  data-ai-hint="doctor smiling"
                   className="h-full w-full object-cover object-center"
                 />
               </div>
