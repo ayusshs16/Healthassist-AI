@@ -47,6 +47,16 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:gap-12 items-center justify-center text-center">
               <div className="flex flex-col justify-center space-y-4">
+                <div className="w-full max-w-4xl mx-auto aspect-video overflow-hidden rounded-xl bg-white my-4">
+                    <Image
+                    src="https://placehold.co/1200x675.png"
+                    width="1200"
+                    height="675"
+                    alt="Hero Health"
+                    data-ai-hint="medical team"
+                    className="h-full w-full object-cover object-center"
+                    />
+                </div>
                 <div className="space-y-2">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
                     Your Health, Simplified.
@@ -54,16 +64,6 @@ export default function Home() {
                   <p className="max-w-[600px] mx-auto text-muted-foreground md:text-xl">
                     HealthAssist AI is your intelligent partner for finding the right doctor and getting instant health advice.
                   </p>
-                </div>
-                 <div className="w-full max-w-4xl mx-auto aspect-video overflow-hidden rounded-xl bg-white my-4">
-                    <Image
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS81v5NsSYqvFobUvokSZd1cAPE2soIvP4ceXD1IR5uwjG08moTAJ0W1V4&s"
-                    width="1200"
-                    height="675"
-                    alt="Hero Health"
-                    data-ai-hint="medical equipment"
-                    className="h-full w-full object-cover object-center"
-                    />
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center">
                   <Button size="lg" asChild>
