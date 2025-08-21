@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -63,11 +64,11 @@ export default function Home() {
                 </div>
               </div>
               <Image
-                src="https://placehold.co/600x400.png"
+                src="https://img.freepik.com/free-photo/medical-stethoscope-with-paper-cut-family_23-2148488217.jpg?w=1380"
                 width="600"
                 height="400"
                 alt="Hero"
-                data-ai-hint="doctor professional healthcare"
+                data-ai-hint="medical background healthcare"
                 className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
               />
             </div>
