@@ -43,35 +43,35 @@ export default function Home() {
         </nav>
       </header>
       <main className="flex-1 pt-16">
-        <section className="w-full py-20 md:py-32 lg:py-40 xl:py-56 gradient-background">
+        <section className="w-full py-20 md:py-32 lg:py-40 gradient-background">
           <div className="container px-4 md:px-6">
-            <div className="grid gap-6 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_700px]">
+            <div className="grid gap-6 lg:gap-12 items-center justify-center text-center">
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
                     Your Health, Simplified.
                   </h1>
-                  <p className="max-w-[600px] text-muted-foreground md:text-xl">
+                  <p className="max-w-[600px] mx-auto text-muted-foreground md:text-xl">
                     HealthAssist AI is your intelligent partner for finding the right doctor and getting instant health advice.
                   </p>
                 </div>
-                <div className="flex flex-col gap-2 min-[400px]:flex-row">
+                 <div className="w-full max-w-4xl mx-auto aspect-video overflow-hidden rounded-xl bg-white my-4">
+                    <Image
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS81v5NsSYqvFobUvokSZd1cAPE2soIvP4ceXD1IR5uwjG08moTAJ0W1V4&s"
+                    width="1200"
+                    height="675"
+                    alt="Hero Health"
+                    data-ai-hint="medical equipment"
+                    className="h-full w-full object-cover object-center"
+                    />
+                </div>
+                <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center">
                   <Button size="lg" asChild>
                     <Link href="/signup" className="flex items-center gap-2" prefetch={false}>
                       Get Started <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
                 </div>
-              </div>
-              <div className="mx-auto aspect-video overflow-hidden rounded-xl lg:order-last bg-white">
-                <Image
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS81v5NsSYqvFobUvokSZd1cAPE2soIvP4ceXD1IR5uwjG08moTAJ0W1V4&s"
-                  width="700"
-                  height="500"
-                  alt="Hero Health"
-                  data-ai-hint="medical equipment"
-                  className="h-full w-full object-cover object-center"
-                />
               </div>
             </div>
           </div>
